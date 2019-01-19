@@ -1,0 +1,36 @@
+{
+  "name": "apify",
+  "version": "0.0.1",
+  "description": "a congfiguration spec to spin up graphql backends with mongodb, redis and elastic search",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umran/apify.git"
+  },
+  "keywords": [
+    "api",
+    "bootstrap",
+    "mongodb",
+    "graphql",
+    "mongoose",
+    "redis",
+    "elastic",
+    "search",
+    "elasticsearch"
+  ],
+  "author": "Ahmed Umran Hussain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/umran/apify/issues"
+  },
+  "homepage": "https://github.com/umran/apify#readme",
+  "dependencies": {
+    "ajv": "^6.7.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  }
+}

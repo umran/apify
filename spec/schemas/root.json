@@ -1,0 +1,38 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schema/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "class",
+    "fields"
+  ],
+  "properties": {
+    "class": {
+      "$id": "#/properties/class",
+      "type": "string",
+      "title": "The Class Schema",
+      "enum": ["standalone", "nested"]
+    },
+    "fields": {
+      "$id": "#/properties/fields",
+      "type": "object",
+      "title": "The Fields Schema",
+      "patternProperties": {
+        "^.*$": {
+          "oneOf": [
+            { "$ref": "/apify/spec/schemas/types/string.json" },
+            { "$ref": "/apify/spec/schemas/types/integer.json" },
+            { "$ref": "/apify/spec/schemas/types/float.json" },
+            { "$ref": "/apify/spec/schemas/types/array.json" },
+            { "$ref": "/apify/spec/schemas/types/date.json" },
+            { "$ref": "/apify/spec/schemas/types/schema.json" },
+            { "$ref": "/apify/spec/schemas/types/boolean.json" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

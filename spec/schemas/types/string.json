@@ -1,0 +1,63 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/string.json",
+  "type": "object",
+  "title": "The String Schema",
+  "required": [
+    "type",
+    "required",
+    "es_indexed",
+    "es_analyzed",
+    "es_keyword"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["string"]
+    },
+    "required": {
+      "$id": "#/properties/required",
+      "type": "boolean",
+      "title": "The Required Schema"
+    },
+    "es_indexed": {
+      "$id": "#/properties/es_indexed",
+      "type": "boolean",
+      "title": "The EsIndexed Schema"
+    },
+    "es_analyzed": {
+      "$id": "#/properties/es_analyzed",
+      "type": "boolean",
+      "title": "The EsAnalyzed Schema"
+    },
+    "es_keyword": {
+      "$id": "#/properties/es_keyword",
+      "type": "boolean",
+      "title": "The EsKeyword Schema"
+    },
+    "es_analyzer": {
+      "$id": "#/properties/es_analyzer",
+      "type": "string",
+      "title": "The EsAnalyzer Schema"
+    },
+    "es_search_analyzer": {
+      "$id": "#/properties/es_search_analyzer",
+      "type": "string",
+      "title": "The EsSearchAnalyzer Schema"
+    },
+    "es_search_quote_analyzer": {
+      "$id": "#/properties/es_search_quote_analyzer",
+      "type": "string",
+      "title": "The EsSearchQuoteAnalyzer Schema"
+    },
+    "es_boost": {
+      "$id": "#/properties/es_boost",
+      "type": "number",
+      "title": "The EsBoost Schema"
+    }
+  },
+  "additionalProperties": false
+}

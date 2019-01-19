@@ -1,0 +1,43 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/array.json",
+  "type": "object",
+  "title": "The Array Schema",
+  "required": [
+    "type",
+    "item",
+    "required",
+    "es_indexed"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["array"]
+    },
+    "item": {
+      "oneOf": [
+        { "$ref": "/apify/spec/schemas/types/string.json" },
+        { "$ref": "/apify/spec/schemas/types/integer.json" },
+        { "$ref": "/apify/spec/schemas/types/float.json" },
+        { "$ref": "/apify/spec/schemas/types/array.json" },
+        { "$ref": "/apify/spec/schemas/types/date.json" },
+        { "$ref": "/apify/spec/schemas/types/schema.json" },
+        { "$ref": "/apify/spec/schemas/types/boolean.json" }
+      ]
+    },
+    "required": {
+      "$id": "#/properties/required",
+      "type": "boolean",
+      "title": "The Required Schema"
+    },
+    "es_indexed": {
+      "$id": "#/properties/es_indexed",
+      "type": "boolean",
+      "title": "The EsIndexed Schema"
+    }
+  },
+  "additionalProperties": false
+}
