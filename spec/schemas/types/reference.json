@@ -1,9 +1,9 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/schema.json",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/reference.json",
   "type": "object",
-  "title": "The Schema Schema",
+  "title": "The Reference Schema",
   "required": [
     "type",
     "ref",
@@ -15,7 +15,7 @@
       "$id": "#/properties/type",
       "type": "string",
       "title": "The Type Schema",
-      "enum": ["schema"]
+      "enum": ["reference"]
     },
     "ref": {
       "$id": "#/properties/ref",

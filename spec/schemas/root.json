@@ -27,7 +27,7 @@
             { "$ref": "/apify/spec/schemas/types/float.json" },
             { "$ref": "/apify/spec/schemas/types/array.json" },
             { "$ref": "/apify/spec/schemas/types/date.json" },
-            { "$ref": "/apify/spec/schemas/types/schema.json" },
+            { "$ref": "/apify/spec/schemas/types/reference.json" },
             { "$ref": "/apify/spec/schemas/types/boolean.json" }
           ]
         }

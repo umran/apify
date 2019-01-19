@@ -8,7 +8,7 @@ const booleanSchema = require('./spec/schemas/types/boolean.json')
 const dateSchema = require('./spec/schemas/types/date.json')
 const floatSchema = require('./spec/schemas/types/float.json')
 const integerSchema = require('./spec/schemas/types/integer.json')
-const schemaSchema = require('./spec/schemas/types/schema.json')
+const referenceSchema = require('./spec/schemas/types/reference.json')
 const stringSchema = require('./spec/schemas/types/string.json')
 
 // import root schema
