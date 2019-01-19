@@ -15,7 +15,7 @@ const stringSchema = require('./spec/schemas/types/string.json')
 const rootSchema = require('./spec/schemas/root.json')
 
 const ajv = new Ajv({ allErrors: true })
-const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, schemaSchema, stringSchema]).compile(rootSchema)
+const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, referenceSchema, stringSchema]).compile(rootSchema)
 
 const express = require('express')
 const cors = require('cors')
