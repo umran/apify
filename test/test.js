@@ -3,7 +3,7 @@ const generateMongooseSchemas = require('../src/generateMongooseSchemas')
 const data = require('./data')
 
 describe('generateMongooseSchemas()', () => {
-  it('should take an object containing schema configurations and return corresponding mongoose schemas', () => {
+  it('should take an object containing configuration schemas and return corresponding mongoose schemas', () => {
 
     // setup test environment
     const configurationSchemas = data.generateMongooseSchemas.configurationSchemas
