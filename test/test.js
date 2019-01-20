@@ -1,19 +1,21 @@
 const expect = require('chai').expect
-const generateMongooseSchema = require('../src/generateMongooseSchema')
-const data = require('./data').expectedMongooseSchemas
+const generateMongooseSchemas = require('../src/generateMongooseSchemas')
+const data = require('./data')
 
-describe('generateMongooseSchema()', () => {
-  it('should take a schema configuration and return a valid mongoose schema', () => {
+describe('generateMongooseSchemas()', () => {
+  it('should take an object containing schema configurations and return corresponding mongoose schemas', () => {
 
-    // 1. ARRANGE
-    const schemaConfig = data.schemaConfig
-    const expectedMongooseSchema = data.expectedMongooseSchema
+    // setup test environment
+    const configurationSchemas = data.generateMongooseSchemas.configurationSchemas
+    const expectedMongooseSchemas = data.generateMongooseSchemas.expectedMongooseSchemas
 
-    // 2. ACT
-    const generatedMongooseSchema = generateMongooseSchema(schemaConfig)
+    // run tests
+    const generatedMongooseSchemas = generateMongooseSchemas(configurationSchemas)
 
-    // 3. ASSERT
-    expect(generatedMongooseSchema).to.deep.equal(expectedMongooseSchema)
+    // assert results
+    Object.keys(generatedMongooseSchemas).forEach(generatedSchemaKey => {
+      expect(generatedMongooseSchemas[generatedSchemaKey]).to.deep.equal(expectedMongooseSchemas[generatedSchemaKey])
+    })
 
   })
 })
