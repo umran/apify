@@ -32,14 +32,7 @@ const findArrayReference = field => {
   }
 }
 
-const determineOrder = schemas => {
-  var ordered = []
-  scour(ordered, schemas)
-
-  return ordered
-}
-
-const scour = (ordered, schemas) => {
+const determineOrder = (schemas, ordered=[]) => {
   const remainingSchemas = Object.keys(schemas).filter(schemaKey => ordered.indexOf(schemaKey) < 0)
 
   for (var i=0; i<remainingSchemas.length; i++) {
@@ -47,7 +40,7 @@ const scour = (ordered, schemas) => {
     const references = findReferences(schemas[schemaKey])
     if (references.length === 0) {
       ordered.push(schemaKey)
-      return scour(ordered, schemas)
+      return determineOrder(schemas, ordered)
     } else if (
       references.reduce((truthValue, reference) => {
         if (!exists(ordered, orderedRef => orderedRef === reference)) {
@@ -58,11 +51,15 @@ const scour = (ordered, schemas) => {
       }, true)
     ) {
       ordered.push(schemaKey)
-      return scour(ordered, schemas)
-    } else {
-      throw new Error(`The schema ${schemaKey} has at least one unresolvable reference. This is a fatal error. Aborting...`)
+      return determineOrder(schemas, ordered)
     }
   }
+
+  if (remainingSchemas.length > 0) {
+    throw new Error(`The following schemas: ${remainingSchemas.join(', ')} have unresolvable references. This is a fatal error. Aborting...`)
+  }
+
+  return ordered
 }
 
 const exists = (arr, lambda) => {
@@ -77,6 +74,7 @@ const exists = (arr, lambda) => {
 
 module.exports = schemas => {
   const ordered = determineOrder(schemas)
+  console.log(ordered)
   // this is still cheating, but hang in there
   return expectedMongooseSchemas
 }
