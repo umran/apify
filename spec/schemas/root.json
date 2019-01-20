@@ -13,7 +13,7 @@
       "$id": "#/properties/class",
       "type": "string",
       "title": "The Class Schema",
-      "enum": ["standalone", "nested"]
+      "enum": ["collection", "embedded"]
     },
     "fields": {
       "$id": "#/properties/fields",

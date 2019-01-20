@@ -1,6 +1,6 @@
 const expect = require('chai').expect
-const generateSchema = require('../src/generateMongooseSchema')
-const data = require('./data')
+const generateMongooseSchema = require('../src/generateMongooseSchema')
+const data = require('./data').expectedMongooseSchemas
 
 describe('generateMongooseSchema()', () => {
   it('should take a schema configuration and return a valid mongoose schema', () => {
