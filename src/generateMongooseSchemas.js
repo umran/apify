@@ -59,7 +59,7 @@ const determineOrder = (schemas, associatedReferences, ordered=[]) => {
   }
 
   if (remainingSchemas.length > 0) {
-    throw new SchemaError('circularReference', `The following schemas: ${remainingSchemas.join(', ')} ${remainingSchemas.length === 1 ? 'has' : 'have'} circular references. Please ensure your schemas do not have circular references.`)
+    throw new SchemaError('circularReference', `The following schemas: ${remainingSchemas.join(', ')} have circular references. Please ensure your schemas do not have circular references.`)
   }
 
   return ordered
