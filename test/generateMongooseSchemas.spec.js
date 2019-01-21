@@ -17,7 +17,7 @@ describe('generateMongooseSchemas()', () => {
 
   })
 
-  it('should take configuration schemas with undefined references and throw a SchemaError', () => {
+  it('should take configuration schemas with undefined references and throw a SchemaError with code unresolvableReference', () => {
 
     const configurationSchemas = data.configurationSchemasWithUndefinedReferences
     const test = () => {
@@ -28,7 +28,7 @@ describe('generateMongooseSchemas()', () => {
 
   })
 
-  it('should take configuration schemas with circular references and throw a SchemaError', () => {
+  it('should take configuration schemas with circular references and throw a SchemaError with code unresolvableReference', () => {
 
     const configurationSchemas = data.configurationSchemasWithCircularReferences
     const test = () => {
