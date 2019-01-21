@@ -179,6 +179,7 @@ const ParentSchema = {
       // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
       es_indexed: true
     },
+    // a second reference to the same schema is added here to cover additional branches during testing
     otherContact: {
       type: "reference",
       required: true,
