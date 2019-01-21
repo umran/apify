@@ -4,13 +4,6 @@ const configurationSchemasWithUndefinedReferences = require('./configurationSche
 const configurationSchemasWithCircularReferences = require('./configurationSchemasWithCircularReferences')
 
 // expected mongoose schemas
-const PersonSchema = {
-  name: {
-    type: String,
-    required: true
-  }
-}
-
 const ContactSchema = {
   phone: {
     type: Number,
@@ -18,6 +11,17 @@ const ContactSchema = {
   },
   email: {
     type: String,
+    required: true
+  }
+}
+
+const PersonSchema = {
+  name: {
+    type: String,
+    required: true
+  },
+  contact: {
+    type: ContactSchema,
     required: true
   }
 }
@@ -107,8 +111,13 @@ const ParentSchema = {
     required: true
   },
 
-  // embedded reference field
+  // embedded reference fields
   contact: {
+    type: ContactSchema,
+    required: true
+  },
+
+  otherContact: {
     type: ContactSchema,
     required: true
   },

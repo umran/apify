@@ -8,6 +8,12 @@ const PersonSchema = {
       es_indexed: true,
       es_analyzed: true,
       es_keyword: false
+    },
+    contact: {
+      type: "reference",
+      required: true,
+      ref: "ContactSchema",
+      es_indexed: true
     }
   }
 }
@@ -167,6 +173,13 @@ const ParentSchema = {
       es_indexed: true
     },
     contact: {
+      type: "reference",
+      required: true,
+      ref: "ContactSchema",
+      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
+      es_indexed: true
+    },
+    otherContact: {
       type: "reference",
       required: true,
       ref: "ContactSchema",
