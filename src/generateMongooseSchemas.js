@@ -1,6 +1,37 @@
 const MongooseSchema = require('mongoose').Schema
 const SchemaError = require('./errors').SchemaError
 
+module.exports = schemas => {
+  const associatedReferences = associateReferences(schemas)
+  const mergedReferences = mergeReferences(associatedReferences)
+  const classifiedReferences = classifyReferences(schemas, mergedReferences)
+
+  // determine order of schema generation based on dependencies
+  const schemaOrder = determineOrder(schemas, associatedReferences)
+
+  var generatedSchemaContents = {}
+  var generatedSchemas = {}
+
+  for (var i = 0; i < schemaOrder.length; i++) {
+    const { generatedSchemaContent, generatedSchema } = generateSchema(schemas[schemaOrder[i]], classifiedReferences, generatedSchemaContents, generatedSchemas)
+
+    generatedSchemaContents[schemaOrder[i]] = generatedSchemaContent
+    generatedSchemas[schemaOrder[i]] = generatedSchema
+  }
+
+  return {
+    generatedSchemaContents,
+    generatedSchemas
+  }
+}
+
+const associateReferences = schemas => {
+  return Object.keys(schemas).reduce((accumulator, schemaKey) => {
+    accumulator[schemaKey] = findReferences(schemas[schemaKey])
+    return accumulator
+  }, {})
+}
+
 const findReferences = schema => {
   return Object.keys(schema.fields).reduce((accumulator, fieldKey) => {
     if (schema.fields[fieldKey].type === "array") {
@@ -28,10 +59,26 @@ const findArrayReference = field => {
   }
 }
 
-const associateReferences = schemas => {
-  return Object.keys(schemas).reduce((accumulator, schemaKey) => {
-    accumulator[schemaKey] = findReferences(schemas[schemaKey])
+const mergeReferences = associatedReferences => {
+  return Object.keys(associatedReferences).reduce((accumulator, schemaKey) => {
+    const references = associatedReferences[schemaKey]
+    for (var i = 0; i < references.length; i++) {
+      if (accumulator.indexOf(references[i]) < 0) {
+        accumulator.push(references[i])
+      }
+    }
     return accumulator
+  }, [])
+}
+
+const classifyReferences = (schemas, mergedReferences) => {
+  return mergedReferences.reduce((classified, referenceKey) => {
+    if (!schemas[referenceKey]) {
+      throw new SchemaError('undefinedReference', `the following reference: ${referenceKey} is undefined`)
+    }
+
+    classified[referenceKey] = schemas[referenceKey].class
+    return classified
   }, {})
 }
 
@@ -63,29 +110,6 @@ const determineOrder = (schemas, associatedReferences, ordered=[]) => {
   }
 
   return ordered
-}
-
-const mergeReferences = associatedReferences => {
-  return Object.keys(associatedReferences).reduce((accumulator, schemaKey) => {
-    const references = associatedReferences[schemaKey]
-    for (var i = 0; i < references.length; i++) {
-      if (accumulator.indexOf(references[i]) < 0) {
-        accumulator.push(references[i])
-      }
-    }
-    return accumulator
-  }, [])
-}
-
-const classifyReferences = (schemas, mergedReferences) => {
-  return mergedReferences.reduce((classified, referenceKey) => {
-    if (!schemas[referenceKey]) {
-      throw new SchemaError('undefinedReference', `the following reference: ${referenceKey} is undefined`)
-    }
-
-    classified[referenceKey] = schemas[referenceKey].class
-    return classified
-  }, {})
 }
 
 const generateSchema = (schema, classifiedReferences, generatedSchemaContents, generatedSchemas) => {
@@ -203,28 +227,4 @@ const exists = (arr, lambda) => {
 
 const upperCaseFirstLetter = string => {
   return string.charAt(0).toUpperCase().concat(string.slice(1))
-}
-
-module.exports = schemas => {
-  const associatedReferences = associateReferences(schemas)
-  const mergedReferences = mergeReferences(associatedReferences)
-  const classifiedReferences = classifyReferences(schemas, mergedReferences)
-
-  // determine order of schema generation based on dependencies
-  const schemaOrder = determineOrder(schemas, associatedReferences)
-
-  var generatedSchemaContents = {}
-  var generatedSchemas = {}
-
-  for (var i = 0; i < schemaOrder.length; i++) {
-    const { generatedSchemaContent, generatedSchema } = generateSchema(schemas[schemaOrder[i]], classifiedReferences, generatedSchemaContents, generatedSchemas)
-
-    generatedSchemaContents[schemaOrder[i]] = generatedSchemaContent
-    generatedSchemas[schemaOrder[i]] = generatedSchema
-  }
-
-  return {
-    generatedSchemaContents,
-    generatedSchemas
-  }
 }
