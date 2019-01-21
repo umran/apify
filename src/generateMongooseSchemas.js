@@ -1,4 +1,5 @@
 const Schema = require('mongoose').Schema
+const SchemaError = require('./errors').SchemaError
 const expectedMongooseSchemas = require('../test/data').generateMongooseSchemas.expectedMongooseSchemas
 
 const findReferences = schema => {
@@ -56,7 +57,7 @@ const determineOrder = (schemas, ordered=[]) => {
   }
 
   if (remainingSchemas.length > 0) {
-    throw new Error(`The following schemas: ${remainingSchemas.join(', ')} have unresolvable references. This is a fatal error. Aborting...`)
+    throw new SchemaError('unresolvableReference', `The following schemas: ${remainingSchemas.join(', ')} ${remainingSchemas.length === 1 ? 'has' : 'have'} unresolvable references. Please check that your schemas do not have circular references or undefined references.`)
   }
 
   return ordered
@@ -74,7 +75,7 @@ const exists = (arr, lambda) => {
 
 module.exports = schemas => {
   const ordered = determineOrder(schemas)
-  console.log(ordered)
+
   // this is still cheating, but hang in there
   return expectedMongooseSchemas
 }

@@ -1,5 +1,7 @@
 const Schema = require('mongoose').Schema
 const configurationSchemas = require('./configurationSchemas')
+const configurationSchemasWithUndefinedReferences = require('./configurationSchemasWithUndefinedReferences')
+const configurationSchemasWithCircularReferences = require('./configurationSchemasWithCircularReferences')
 
 // expected mongoose schemas
 const PersonMongooseSchema = new Schema({
@@ -127,5 +129,7 @@ module.exports = {
     AddressMongooseSchema,
     ParentMongooseSchema
   },
-  configurationSchemas
+  configurationSchemas,
+  configurationSchemasWithUndefinedReferences,
+  configurationSchemasWithCircularReferences
 }
