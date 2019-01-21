@@ -3,16 +3,16 @@ const Ajv = require('ajv')
 const listenPort = process.env.PORT || 3069
 
 // import type schemas
-const arraySchema = require('./src/spec/schemas/types/array.json')
-const booleanSchema = require('./src/spec/schemas/types/boolean.json')
-const dateSchema = require('./src/spec/schemas/types/date.json')
-const floatSchema = require('./src/spec/schemas/types/float.json')
-const integerSchema = require('./src/spec/schemas/types/integer.json')
-const referenceSchema = require('./src/spec/schemas/types/reference.json')
-const stringSchema = require('./src/spec/schemas/types/string.json')
+const arraySchema = require('./src/schemas/types/array.json')
+const booleanSchema = require('./src/schemas/types/boolean.json')
+const dateSchema = require('./src/schemas/types/date.json')
+const floatSchema = require('./src/schemas/types/float.json')
+const integerSchema = require('./src/schemas/types/integer.json')
+const referenceSchema = require('./src/schemas/types/reference.json')
+const stringSchema = require('./src/schemas/types/string.json')
 
 // import root schema
-const rootSchema = require('./src/spec/schemas/root.json')
+const rootSchema = require('./src/schemas/root.json')
 
 const ajv = new Ajv({ allErrors: true })
 const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, referenceSchema, stringSchema]).compile(rootSchema)

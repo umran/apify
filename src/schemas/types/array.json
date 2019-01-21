@@ -22,7 +22,6 @@
         { "$ref": "/apify/spec/schemas/types/string.json" },
         { "$ref": "/apify/spec/schemas/types/integer.json" },
         { "$ref": "/apify/spec/schemas/types/float.json" },
-        { "$ref": "/apify/spec/schemas/types/array.json" },
         { "$ref": "/apify/spec/schemas/types/date.json" },
         { "$ref": "/apify/spec/schemas/types/reference.json" },
         { "$ref": "/apify/spec/schemas/types/boolean.json" }

@@ -4,14 +4,14 @@ const configurationSchemasWithUndefinedReferences = require('./configurationSche
 const configurationSchemasWithCircularReferences = require('./configurationSchemasWithCircularReferences')
 
 // expected mongoose schemas
-const PersonMongooseSchema = new Schema({
+const PersonSchema = {
   name: {
     type: String,
     required: true
   }
-})
+}
 
-const ContactMongooseSchema = new Schema({
+const ContactSchema = {
   phone: {
     type: Number,
     required: true
@@ -20,9 +20,9 @@ const ContactMongooseSchema = new Schema({
     type: String,
     required: true
   }
-})
+}
 
-const AddressMongooseSchema = new Schema({
+const AddressSchema = {
   line_1: {
     type: String,
     required: true
@@ -43,9 +43,9 @@ const AddressMongooseSchema = new Schema({
     type: String,
     required: true
   }
-})
+}
 
-const ParentMongooseSchema = new Schema({
+const ParentSchema = {
   // string field
   name: {
     type: String,
@@ -54,7 +54,7 @@ const ParentMongooseSchema = new Schema({
 
   // string array field
   tags: {
-    type: [String],
+    type: [{ type: String, required: true }],
     required: false
   },
 
@@ -66,7 +66,7 @@ const ParentMongooseSchema = new Schema({
 
   // integer or float array field
   favourite_numbers: {
-    type: [Number],
+    type: [{ type: Number, required: true }],
     required: true
   },
 
@@ -78,7 +78,7 @@ const ParentMongooseSchema = new Schema({
 
   // boolean array field
   answers: {
-    type: [Boolean],
+    type: [{ type: Boolean, required: true }],
     required: false
   },
 
@@ -90,7 +90,7 @@ const ParentMongooseSchema = new Schema({
 
   // date array field
   starts: {
-    type: [Date],
+    type: [{ type: Date, required: true }],
     required: true
   },
 
@@ -103,31 +103,30 @@ const ParentMongooseSchema = new Schema({
 
   // collection reference array field
   friends: {
-    type: [Schema.Types.ObjectId],
-    required: true,
-    ref: 'PersonSchema'
+    type: [{ type: Schema.Types.ObjectId, required: true, ref: 'PersonSchema' }],
+    required: true
   },
 
   // embedded reference field
   contact: {
-    type: ContactMongooseSchema,
+    type: ContactSchema,
     required: true
   },
 
   // embedded reference array field
   addresses: {
-    type: [AddressMongooseSchema],
+    type: [{type: AddressSchema, required: true }],
     required: true
   }
 
-})
+}
 
 module.exports = {
   expectedMongooseSchemas: {
-    PersonMongooseSchema,
-    ContactMongooseSchema,
-    AddressMongooseSchema,
-    ParentMongooseSchema
+    PersonSchema,
+    ContactSchema,
+    AddressSchema,
+    ParentSchema
   },
   configurationSchemas,
   configurationSchemasWithUndefinedReferences,
