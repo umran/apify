@@ -1,5 +1,5 @@
 {
-  "name": "apify",
+  "name": "@umran/apify",
   "version": "0.0.1",
   "description": "a congfiguration spec to spin up graphql backends with mongodb, redis and elastic search",
   "main": "server.js",
