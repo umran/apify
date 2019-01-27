@@ -1,24 +1,5 @@
 // configuration schemas
-const PersonSchema = {
-  class: "collection",
-  fields: {
-    name: {
-      type: "string",
-      required: true,
-      es_indexed: true,
-      es_analyzed: true,
-      es_keyword: false
-    },
-    contact: {
-      type: "reference",
-      required: true,
-      ref: "ContactSchema",
-      es_indexed: true
-    }
-  }
-}
-
-const ContactSchema = {
+const Contact = {
   class: "embedded",
   fields: {
     phone: {
@@ -30,61 +11,72 @@ const ContactSchema = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: true
     }
   }
 }
 
-const AddressSchema = {
-  class: "embedded",
-  fields: {
-    line_1: {
-      type: "string",
-      required: true,
-      es_indexed: true,
-      es_analyzed: false,
-      es_keyword: false
-    },
-    line_2: {
-      type: "string",
-      required: false,
-      es_indexed: true,
-      es_analyzed: false,
-      es_keyword: false
-    },
-    city: {
-      type: "string",
-      required: true,
-      es_indexed: true,
-      es_analyzed: false,
-      es_keyword: false
-    },
-    postal_code: {
-      type: "string",
-      required: true,
-      es_indexed: true,
-      es_analyzed: false,
-      es_keyword: false
-    },
-    province: {
-      type: "string",
-      required: true,
-      es_indexed: true,
-      es_analyzed: false,
-      es_keyword: false
-    }
-  }
-}
-
-const ParentSchema = {
+const Person = {
   class: "collection",
   fields: {
     name: {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: true,
+      es_keyword: false
+    },
+    contact: {
+      type: "reference",
+      required: true,
+      ref: "Contact",
+      es_indexed: true
+    }
+  }
+}
+
+const Address = {
+  class: "embedded",
+  fields: {
+    line_1: {
+      type: "string",
+      required: true,
+      es_indexed: true,
+      es_keyword: false
+    },
+    line_2: {
+      type: "string",
+      required: false,
+      es_indexed: true,
+      es_keyword: false
+    },
+    city: {
+      type: "string",
+      required: true,
+      es_indexed: true,
+      es_keyword: false
+    },
+    postal_code: {
+      type: "string",
+      required: true,
+      es_indexed: true,
+      es_keyword: true
+    },
+    province: {
+      type: "string",
+      required: true,
+      es_indexed: true,
+      es_keyword: false
+    }
+  }
+}
+
+const Parent = {
+  class: "collection",
+  fields: {
+    name: {
+      type: "string",
+      required: true,
+      es_indexed: true,
       es_keyword: false
     },
     tags: {
@@ -95,11 +87,8 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true,
-        es_analyzed: true,
         es_keyword: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     age: {
       type: "integer",
@@ -114,9 +103,7 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     isAmerican: {
       type: "boolean",
@@ -131,8 +118,7 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      es_indexed: true
+      }
     },
     start: {
       type: "date",
@@ -147,14 +133,12 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     spouse: {
       type: "reference",
       required: false,
-      ref: "PersonSchema",
+      ref: "Person",
       // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
       es_indexed: true
     },
@@ -165,17 +149,15 @@ const ParentSchema = {
         type: "reference",
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
-        ref: "PersonSchema",
+        ref: "Person",
         // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     contact: {
       type: "reference",
       required: true,
-      ref: "ContactSchema",
+      ref: "Contact",
       // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
       es_indexed: true
     },
@@ -183,7 +165,7 @@ const ParentSchema = {
     otherContact: {
       type: "reference",
       required: true,
-      ref: "ContactSchema",
+      ref: "Contact",
       // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
       es_indexed: true
     },
@@ -194,19 +176,17 @@ const ParentSchema = {
         type: "reference",
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
-        ref: "AddressSchema",
+        ref: "Address",
         // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     }
   }
 }
 
 module.exports = {
-  PersonSchema,
-  ContactSchema,
-  AddressSchema,
-  ParentSchema
+  Person,
+  Contact,
+  Address,
+  Parent
 }

@@ -8,7 +8,6 @@
     "type",
     "required",
     "es_indexed",
-    "es_analyzed",
     "es_keyword"
   ],
   "properties": {
@@ -27,11 +26,6 @@
       "$id": "#/properties/es_indexed",
       "type": "boolean",
       "title": "The EsIndexed Schema"
-    },
-    "es_analyzed": {
-      "$id": "#/properties/es_analyzed",
-      "type": "boolean",
-      "title": "The EsAnalyzed Schema"
     },
     "es_keyword": {
       "$id": "#/properties/es_keyword",

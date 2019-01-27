@@ -7,8 +7,7 @@
   "required": [
     "type",
     "item",
-    "required",
-    "es_indexed"
+    "required"
   ],
   "properties": {
     "type": {
@@ -31,11 +30,6 @@
       "$id": "#/properties/required",
       "type": "boolean",
       "title": "The Required Schema"
-    },
-    "es_indexed": {
-      "$id": "#/properties/es_indexed",
-      "type": "boolean",
-      "title": "The EsIndexed Schema"
     }
   },
   "additionalProperties": false

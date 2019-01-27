@@ -4,7 +4,7 @@ const configurationSchemasWithUndefinedReferences = require('./configurationSche
 const configurationSchemasWithCircularReferences = require('./configurationSchemasWithCircularReferences')
 
 // expected mongoose schemas
-const ContactSchema = {
+const Contact = {
   phone: {
     type: Number,
     required: true
@@ -15,18 +15,18 @@ const ContactSchema = {
   }
 }
 
-const PersonSchema = {
+const Person = {
   name: {
     type: String,
     required: true
   },
   contact: {
-    type: ContactSchema,
+    type: Contact,
     required: true
   }
 }
 
-const AddressSchema = {
+const Address = {
   line_1: {
     type: String,
     required: true
@@ -49,7 +49,7 @@ const AddressSchema = {
   }
 }
 
-const ParentSchema = {
+const Parent = {
   // string field
   name: {
     type: String,
@@ -102,29 +102,29 @@ const ParentSchema = {
   spouse: {
     type: Schema.Types.ObjectId,
     required: false,
-    ref: 'PersonSchema'
+    ref: 'Person'
   },
 
   // collection reference array field
   friends: {
-    type: [{ type: Schema.Types.ObjectId, required: true, ref: 'PersonSchema' }],
+    type: [{ type: Schema.Types.ObjectId, required: true, ref: 'Person' }],
     required: true
   },
 
   // embedded reference fields
   contact: {
-    type: ContactSchema,
+    type: Contact,
     required: true
   },
 
   otherContact: {
-    type: ContactSchema,
+    type: Contact,
     required: true
   },
 
   // embedded reference array field
   addresses: {
-    type: [{type: AddressSchema, required: true }],
+    type: [{type: Address, required: true }],
     required: true
   }
 
@@ -132,10 +132,10 @@ const ParentSchema = {
 
 module.exports = {
   expectedMongooseSchemas: {
-    PersonSchema,
-    ContactSchema,
-    AddressSchema,
-    ParentSchema
+    Person,
+    Contact,
+    Address,
+    Parent
   },
   configurationSchemas,
   configurationSchemasWithUndefinedReferences,

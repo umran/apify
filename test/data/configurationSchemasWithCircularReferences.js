@@ -6,7 +6,6 @@ const PersonSchema = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: true,
       es_keyword: false
     }
   }
@@ -24,7 +23,6 @@ const ContactSchema = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: true
     }
   }
@@ -37,35 +35,30 @@ const AddressSchema = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: false
     },
     line_2: {
       type: "string",
       required: false,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: false
     },
     city: {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: false
     },
     postal_code: {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: false
     },
     province: {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: false,
       es_keyword: false
     },
     parent: {
@@ -84,7 +77,6 @@ const ParentSchema = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_analyzed: true,
       es_keyword: false
     },
     tags: {
@@ -95,11 +87,8 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true,
-        es_analyzed: true,
         es_keyword: true
       },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
     },
     age: {
       type: "integer",
@@ -114,9 +103,7 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     isAmerican: {
       type: "boolean",
@@ -131,8 +118,7 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      es_indexed: true
+      }
     },
     start: {
       type: "date",
@@ -147,9 +133,7 @@ const ParentSchema = {
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     spouse: {
       type: "reference",
@@ -168,9 +152,7 @@ const ParentSchema = {
         ref: "PersonSchema",
         // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     },
     contact: {
       type: "reference",
@@ -189,9 +171,7 @@ const ParentSchema = {
         ref: "AddressSchema",
         // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
         es_indexed: true
-      },
-      // for the reference and array types, the es_indexed field determines whether the underlying object should be indexed according to the index and anlyzer options specified in the object
-      es_indexed: true
+      }
     }
   }
 }
