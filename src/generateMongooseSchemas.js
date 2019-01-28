@@ -64,31 +64,67 @@ const generateField = (field, classifiedReferences, generatedSchemaContents, gen
 }
 
 const generateStringField = field => {
-  return {
+  let result =  {
     type: String,
     required: field.required
   }
+
+  if (field.enum) {
+    result.enum = field.enum
+  }
+
+  if (field.default) {
+    result.default = feild.default
+  }
+
+  return result
 }
 
 const generateNumberField = field => {
-  return {
+  let result = {
     type: Number,
     required: field.required
   }
+
+  if (field.enum) {
+    result.enum = field.enum
+  }
+
+  if (field.default) {
+    result.default = feild.default
+  }
+
+  return result
 }
 
 const generateBooleanField = field => {
-  return {
+  let result =  {
     type: Boolean,
     required: field.required
   }
+
+  if (field.default) {
+    result.default = field.default
+  }
+
+  return result
 }
 
 const generateDateField = field => {
-  return {
+  let result = {
     type: Date,
     required: field.required
   }
+
+  if (field.enum) {
+    result.enum = field.enum
+  }
+
+  if (field.default) {
+    result.default = feild.default
+  }
+
+  return result
 }
 
 const generateReferenceField = (field, classifiedReferences, generatedSchemaContents, generatedSchemas) => {

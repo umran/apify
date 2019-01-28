@@ -30,6 +30,12 @@
       "$id": "#/properties/es_boost",
       "type": "number",
       "title": "The EsBoost Schema"
+    },
+    "default": {
+      "$id": "#/properties/default",
+      "type": "boolean",
+      "title": "The Default Schema",
+      "enum": [true, false]
     }
   },
   "additionalProperties": false

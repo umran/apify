@@ -36,6 +36,7 @@ const Person = {
       required: true,
       item: {
         type: "association",
+        intransitive: false,
         ref: "Parent",
         from: "Parent",
         match: {

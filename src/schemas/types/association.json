@@ -7,9 +7,7 @@
   "required": [
     "type",
     "ref",
-    "from",
-    "match",
-    "select"
+    "intransitive"
   ],
   "properties": {
     "type": {
@@ -22,6 +20,11 @@
       "$id": "#/properties/ref",
       "type": "string",
       "title": "The Ref Schema"
+    },
+    "intransitive": {
+      "$id": "#/properties/intransitive",
+      "type": "boolean",
+      "title": "The Intransitive Schema"
     },
     "from": {
       "$id": "#/properties/from",
@@ -38,12 +41,12 @@
       ],
       "properties": {
         "local_field": {
-          "$id": "#/properties/local_field",
+          "$id": "#/properties/match/local_field",
           "type": "string",
           "title": "The LocalField Schema"
         },
         "foreign_field": {
-          "$id": "#/properties/foreign_field",
+          "$id": "#/properties/match/foreign_field",
           "type": "string",
           "title": "The ForeignField Schema"
         }
@@ -56,5 +59,11 @@
       "title": "The Select Schema"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "intransitive": { "enum": [false] }
+    }
+  },
+  "then": { "required": ["from", "match", "select"] }
 }
