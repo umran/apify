@@ -1,5 +1,9 @@
+const validateSchemas = require('./src/validateSchemas')
 const generateMongooseModels = require('./src/generateMongooseModels')
+const generateElasticMappings = require('./src/generateElasticMappings')
 
 module.exports = {
-  generateMongooseModels
+  validateSchemas,
+  generateMongooseModels,
+  generateElasticMappings
 }
