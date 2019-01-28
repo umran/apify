@@ -1,0 +1,60 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/association.json",
+  "type": "object",
+  "title": "The Association Schema",
+  "required": [
+    "type",
+    "ref",
+    "from",
+    "match",
+    "select"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["association"]
+    },
+    "ref": {
+      "$id": "#/properties/ref",
+      "type": "string",
+      "title": "The Ref Schema"
+    },
+    "from": {
+      "$id": "#/properties/from",
+      "type": "string",
+      "title": "The From Schema"
+    },
+    "match": {
+      "$id": "#/properties/match",
+      "type": "object",
+      "title": "The Match Schema",
+      "required": [
+        "local_field",
+        "foreign_field"
+      ],
+      "properties": {
+        "local_field": {
+          "$id": "#/properties/local_field",
+          "type": "string",
+          "title": "The LocalField Schema"
+        },
+        "foreign_field": {
+          "$id": "#/properties/foreign_field",
+          "type": "string",
+          "title": "The ForeignField Schema"
+        }
+      },
+      "additionalProperties": false
+    },
+    "select": {
+      "$id": "#/properties/select",
+      "type": "string",
+      "title": "The Select Schema"
+    }
+  },
+  "additionalProperties": false
+}

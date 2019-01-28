@@ -58,6 +58,8 @@ const generateField = (field, classifiedReferences, generatedSchemaContents, gen
       return generateArrayField(field, classifiedReferences, generatedSchemaContents, generatedSchemas)
     case "reference":
       return generateReferenceField(field, classifiedReferences, generatedSchemaContents, generatedSchemas)
+    case "association":
+      return generateAssociationField(field)
   }
 }
 
@@ -108,6 +110,16 @@ const generateReferenceField = (field, classifiedReferences, generatedSchemaCont
     field: {
       type: generatedSchemas[field.ref],
       required: field.required
+    }
+  }
+}
+
+const generateAssociationField = (field) => {
+  return {
+    field: {
+      type: MongooseSchema.Types.ObjectId,
+      required: false,
+      ref: field.ref
     }
   }
 }
