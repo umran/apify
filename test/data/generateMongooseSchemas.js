@@ -34,6 +34,10 @@ const Person = {
     type: Schema.Types.ObjectId,
     required: false,
     ref: 'Person'
+  },
+  doctors: {
+    type: [{ type: Schema.Types.ObjectId, required: false, ref: 'Person' }],
+    required: true
   }
 }
 

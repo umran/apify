@@ -50,6 +50,16 @@ const Person = {
       required: false,
       ref: "Person",
       es_indexed: false
+    },
+    doctors: {
+      type: "array",
+      required: true,
+      item: {
+        type: "reference",
+        required: false,
+        ref: "Person",
+        es_indexed: false
+      }
     }
   }
 }
