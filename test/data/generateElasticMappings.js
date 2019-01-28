@@ -97,6 +97,11 @@ const Parent = {
       index: true
     },
 
+    end: {
+      type: 'date',
+      index: true
+    },
+
     // date array field
     starts: {
       type: 'date',

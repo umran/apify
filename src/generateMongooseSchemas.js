@@ -64,7 +64,7 @@ const generateField = (field, classifiedReferences, generatedSchemaContents, gen
 }
 
 const generateStringField = field => {
-  let result =  {
+  let result = {
     type: String,
     required: field.required
   }
@@ -74,7 +74,7 @@ const generateStringField = field => {
   }
 
   if (field.default) {
-    result.default = feild.default
+    result.default = field.default
   }
 
   return result
@@ -90,15 +90,15 @@ const generateNumberField = field => {
     result.enum = field.enum
   }
 
-  if (field.default) {
-    result.default = feild.default
+  if (field.default || field.default === 0) {
+    result.default = field.default
   }
 
   return result
 }
 
 const generateBooleanField = field => {
-  let result =  {
+  let result = {
     type: Boolean,
     required: field.required
   }
@@ -116,12 +116,12 @@ const generateDateField = field => {
     required: field.required
   }
 
-  if (field.enum) {
-    result.enum = field.enum
-  }
-
   if (field.default) {
-    result.default = feild.default
+    if (field.default === 'current_date') {
+      result.default = Date.now
+    } else {
+      result.default = new Date(field.default)
+    }
   }
 
   return result

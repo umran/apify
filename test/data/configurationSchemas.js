@@ -84,7 +84,8 @@ const Address = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_keyword: false
+      es_keyword: false,
+      enum: ["Vancouver", "Abbotsford"]
     },
     postal_code: {
       type: "string",
@@ -96,7 +97,8 @@ const Address = {
       type: "string",
       required: true,
       es_indexed: true,
-      es_keyword: false
+      es_keyword: false,
+      default: "BC"
     }
   }
 }
@@ -124,7 +126,8 @@ const Parent = {
     age: {
       type: "integer",
       required: true,
-      es_indexed: true
+      es_indexed: true,
+      enum: [65, 40]
     },
     favourite_numbers: {
       type: "array",
@@ -133,13 +136,15 @@ const Parent = {
         type: "float",
         // the required flag in the item object is ignored by mongoose, but is useful for graphql
         required: true,
-        es_indexed: true
+        es_indexed: true,
+        default: 0
       }
     },
     isAmerican: {
       type: "boolean",
       required: true,
-      es_indexed: true
+      es_indexed: true,
+      default: true
     },
     answers: {
       type: "array",
@@ -154,7 +159,14 @@ const Parent = {
     start: {
       type: "date",
       required: true,
-      es_indexed: true
+      es_indexed: true,
+      default: 'current_date'
+    },
+    end: {
+      type: "date",
+      required: true,
+      es_indexed: true,
+      default: '2019-08-28T07:15:19+0000'
     },
     starts: {
       type: "array",

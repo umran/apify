@@ -52,7 +52,8 @@ const Address = {
   },
   city: {
     type: String,
-    required: true
+    required: true,
+    enum: ['Vancouver', 'Abbotsford']
   },
   postal_code: {
     type: String,
@@ -60,7 +61,8 @@ const Address = {
   },
   province: {
     type: String,
-    required: true
+    required: true,
+    default: 'BC'
   }
 }
 
@@ -80,19 +82,21 @@ const Parent = {
   // integer or float field
   age: {
     type: Number,
-    required: true
+    required: true,
+    enum: [65, 40]
   },
 
   // integer or float array field
   favourite_numbers: {
-    type: [{ type: Number, required: true }],
+    type: [{ type: Number, required: true, default: 0 }],
     required: true
   },
 
   // boolean field
   isAmerican: {
     type: Boolean,
-    required: true
+    required: true,
+    default: true
   },
 
   // boolean array field
@@ -104,7 +108,14 @@ const Parent = {
   // date field
   start: {
     type: Date,
-    required: true
+    required: true,
+    default: Date.now
+  },
+
+  end: {
+    type: Date,
+    required: true,
+    default: new Date('2019-08-28T07:15:19+0000')
   },
 
   // date array field
