@@ -22,7 +22,9 @@ const generateMapping = (schema, generatedMappings) => {
     properties: Object.keys(schema.fields).reduce((generated, fieldKey) => {
       const field = generateField(schema.fields[fieldKey], generatedMappings)
 
-      generated[fieldKey] = field
+      if (field) {
+        generated[fieldKey] = field
+      }
 
       return generated
 
@@ -85,15 +87,21 @@ const generateDateField = field => {
 }
 
 const generateReferenceField = (field, generatedMappings) => {
-  return {
-    type: 'object',
-    enabled: field.es_indexed,
-    properties: generatedMappings[field.ref].properties
+  if (generatedMappings[field.ref]) {
+    return {
+      type: 'object',
+      enabled: field.es_indexed,
+      properties: generatedMappings[field.ref].properties
+    }
   }
 }
 
 const generateArrayField = (field, generatedMappings) => {
   const _field = generateField(field.item, generatedMappings)
+
+  if (!_field) {
+    return
+  }
 
   if (_field.type === 'object') {
     return {

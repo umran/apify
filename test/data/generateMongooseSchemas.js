@@ -2,6 +2,8 @@ const Schema = require('mongoose').Schema
 const configurationSchemas = require('./configurationSchemas')
 const configurationSchemasWithUndefinedReferences = require('./configurationSchemasWithUndefinedReferences')
 const configurationSchemasWithCircularReferences = require('./configurationSchemasWithCircularReferences')
+const configurationSchemasWithRequiredSelfReferences = require('./configurationSchemasWithRequiredSelfReferences')
+const configurationSchemasWithEmbeddedSelfReferences = require('./configurationSchemasWithEmbeddedSelfReferences')
 
 // expected mongoose schemas
 const Contact = {
@@ -23,6 +25,15 @@ const Person = {
   contact: {
     type: Contact,
     required: true
+  },
+  parents: {
+    type: [{ type: Schema.Types.ObjectId, required: false, ref: 'Parent' }],
+    required: true
+  },
+  alias_of: {
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'Person'
   }
 }
 
@@ -139,5 +150,7 @@ module.exports = {
   },
   configurationSchemas,
   configurationSchemasWithUndefinedReferences,
-  configurationSchemasWithCircularReferences
+  configurationSchemasWithCircularReferences,
+  configurationSchemasWithRequiredSelfReferences,
+  configurationSchemasWithEmbeddedSelfReferences
 }

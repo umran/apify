@@ -1,24 +1,33 @@
 const SchemaError = require('./errors').SchemaError
 const { exists } = require('./utils')
 
-const findArrayReference = field => {
-  if (field.item.type === "reference") {
-    return field.item.ref
+const validateReferenceField = (schemaKey, schema, field) => {
+  if (field.ref !== schemaKey) {
+    return
+  }
+
+  if (schema.class === 'embedded') {
+    throw new SchemaError('embeddedSelfReference', `Please ensure that embedded schema types do not reference themselves`)
+  }
+
+  if (field.required === true) {
+    throw new SchemaError('requiredSelfReference', `Please ensure that references to ${field.ref} from ${schemaKey} are not required`)
   }
 }
 
-const findReferences = schema => {
+const findReferences = (schemaKey, schema) => {
   return Object.keys(schema.fields).reduce((accumulator, fieldKey) => {
     if (schema.fields[fieldKey].type === "array") {
-      const reference = findArrayReference(schema.fields[fieldKey])
-      if (reference) {
-        if (accumulator.indexOf(reference) < 0) {
-          accumulator.push(reference)
+      if (schema.fields[fieldKey].item.type === "reference") {
+        validateReferenceField(schemaKey, schema, schema.fields[fieldKey].item)
+        if (accumulator.indexOf(schema.fields[fieldKey].item.ref) < 0) {
+          accumulator.push(schema.fields[fieldKey].item.ref)
         }
       }
     }
 
     if (schema.fields[fieldKey].type === "reference") {
+      validateReferenceField(schemaKey, schema, schema.fields[fieldKey])
       if (accumulator.indexOf(schema.fields[fieldKey].ref) < 0) {
         accumulator.push(schema.fields[fieldKey].ref)
       }
@@ -30,7 +39,7 @@ const findReferences = schema => {
 
 const associateReferences = schemas => {
   return Object.keys(schemas).reduce((accumulator, schemaKey) => {
-    accumulator[schemaKey] = findReferences(schemas[schemaKey])
+    accumulator[schemaKey] = findReferences(schemaKey, schemas[schemaKey])
     return accumulator
   }, {})
 }
@@ -69,7 +78,7 @@ const determineOrder = (schemas, associatedReferences, ordered=[]) => {
       return determineOrder(schemas, associatedReferences, ordered)
     } else if (
       references.reduce((truthValue, reference) => {
-        if (!exists(ordered, orderedRef => orderedRef === reference)) {
+        if (!exists(ordered, orderedRef => orderedRef === reference) && reference !== schemaKey) {
           return false
         }
 

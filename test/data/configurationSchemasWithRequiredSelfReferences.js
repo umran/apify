@@ -47,9 +47,9 @@ const Person = {
     },
     alias_of: {
       type: "reference",
-      required: false,
+      required: true,
       ref: "Person",
-      es_indexed: false
+      es_indexed: true
     }
   }
 }

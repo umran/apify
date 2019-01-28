@@ -86,6 +86,12 @@ const Address = {
       required: true,
       es_indexed: true,
       es_keyword: false
+    },
+    other: {
+      type: "reference",
+      required: false,
+      ref: "Address",
+      es_indexed: false
     }
   }
 }
