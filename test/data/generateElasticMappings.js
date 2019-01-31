@@ -67,13 +67,23 @@ const Parent = {
       index: true
     },
 
-    // integer or float field
+    // integer and integer array fields
     age: {
       type: 'integer',
       index: true
     },
 
-    // integer or float array field
+    favourite_ages: {
+      type: 'integer',
+      index: true
+    },
+
+    // float and float array fields
+    number: {
+      type: 'float',
+      index: true
+    },
+
     favourite_numbers: {
       type: 'float',
       index: true

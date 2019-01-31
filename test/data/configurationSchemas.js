@@ -129,6 +129,21 @@ const Parent = {
       es_indexed: true,
       enum: [65, 40]
     },
+    favourite_ages: {
+      type: "array",
+      required: true,
+      item: {
+        type: "integer",
+        // the required flag in the item object is ignored by mongoose, but is useful for graphql
+        required: true,
+        es_indexed: true
+      }
+    },
+    number: {
+      type: "float",
+      required: true,
+      es_indexed: true,
+    },
     favourite_numbers: {
       type: "array",
       required: true,

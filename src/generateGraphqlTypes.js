@@ -108,6 +108,7 @@ const generateReferenceField = (fieldKey, field, schemas, types, resolver, inArr
   }
 
   if (schemas[field.ref] === 'collection') {
+    console.log('hitting this branch')
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: root[fieldKey] }
       return await resolver('findOne', field.ref, root, args, context)
@@ -123,6 +124,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
   }
 
   if ((field.item.type === 'reference' || field.item.type === 'association') && schemas[field.item.ref] === 'collection') {
+    console.log('hitting this branch')
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: { $in: root[fieldKey] } }
       return await resolver('find', field.ref, root, args, context)
