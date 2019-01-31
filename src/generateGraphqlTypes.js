@@ -8,6 +8,7 @@ module.exports = (schemas, resolver) => {
   	}
 
   	return accumulator
+    
  	}, {})
 
 	return types
