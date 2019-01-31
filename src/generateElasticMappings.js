@@ -3,6 +3,7 @@ module.exports = schemas => {
     accumulator[schemaKey] = () => generateMapping(schemaKey, schemas[schemaKey], generatedMappings)
 
     return accumulator
+    
   }, {})
 
   return generatedMappings
