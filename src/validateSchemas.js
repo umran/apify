@@ -29,5 +29,5 @@ module.exports = schemas => {
   const associatedReferences = associateReferences(schemas)
   const mergedReferences = mergeReferences(associatedReferences)
   const classifiedReferences = classifyReferences(schemas, mergedReferences)
-	const orderedSchemas = validateDependencies(schemas, associatedReferences)
+  const orderedSchemas = validateDependencies(schemas, associatedReferences)
 }
