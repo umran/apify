@@ -107,8 +107,7 @@ const generateReferenceField = (fieldKey, field, schemas, types, resolver, inArr
     type: types[field.ref].objectType
   }
 
-  if (schemas[field.ref] === 'collection') {
-    console.log('hitting this branch')
+  if (schemas[field.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: root[fieldKey] }
       return await resolver('findOne', field.ref, root, args, context)
@@ -123,8 +122,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
     type: new GraphQLList(generateField(fieldKey, field.item, schemas, types, resolver, true))
   }
 
-  if ((field.item.type === 'reference' || field.item.type === 'association') && schemas[field.item.ref] === 'collection') {
-    console.log('hitting this branch')
+  if ((field.item.type === 'reference' || field.item.type === 'association') && schemas[field.item.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: { $in: root[fieldKey] } }
       return await resolver('find', field.ref, root, args, context)
