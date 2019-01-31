@@ -17,12 +17,10 @@ const validateReferenceField = (schemaKey, schema, field) => {
 
 const findReferences = (schemaKey, schema) => {
   return Object.keys(schema.fields).reduce((accumulator, fieldKey) => {
-    if (schema.fields[fieldKey].type === "array") {
-      if (schema.fields[fieldKey].item.type === "reference") {
-        validateReferenceField(schemaKey, schema, schema.fields[fieldKey].item)
-        if (accumulator.indexOf(schema.fields[fieldKey].item.ref) < 0) {
-          accumulator.push(schema.fields[fieldKey].item.ref)
-        }
+    if (schema.fields[fieldKey].type === "array" && schema.fields[fieldKey].item.type === "reference") {
+      validateReferenceField(schemaKey, schema, schema.fields[fieldKey].item)
+      if (accumulator.indexOf(schema.fields[fieldKey].item.ref) < 0) {
+        accumulator.push(schema.fields[fieldKey].item.ref)
       }
     }
 
@@ -67,7 +65,7 @@ const classifyReferences = (schemas, mergedReferences) => {
   }, {})
 }
 
-const determineOrder = (schemas, associatedReferences, ordered=[]) => {
+const validateDependencies = (schemas, associatedReferences, ordered=[]) => {
   const remainingSchemas = Object.keys(schemas).filter(schemaKey => ordered.indexOf(schemaKey) < 0)
 
   for (var i = 0; i < remainingSchemas.length; i++) {
@@ -75,7 +73,7 @@ const determineOrder = (schemas, associatedReferences, ordered=[]) => {
     const references = associatedReferences[schemaKey]
     if (references.length === 0) {
       ordered.push(schemaKey)
-      return determineOrder(schemas, associatedReferences, ordered)
+      return validateDependencies(schemas, associatedReferences, ordered)
     } else if (
       references.reduce((truthValue, reference) => {
         if (!exists(ordered, orderedRef => orderedRef === reference) && reference !== schemaKey) {
@@ -86,7 +84,7 @@ const determineOrder = (schemas, associatedReferences, ordered=[]) => {
       }, true)
     ) {
       ordered.push(schemaKey)
-      return determineOrder(schemas, associatedReferences, ordered)
+      return validateDependencies(schemas, associatedReferences, ordered)
     }
   }
 
@@ -101,5 +99,5 @@ module.exports = {
   associateReferences,
   mergeReferences,
   classifyReferences,
-  determineOrder
+  validateDependencies
 }

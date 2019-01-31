@@ -35,6 +35,8 @@
   "homepage": "https://github.com/umran/apify#readme",
   "dependencies": {
     "ajv": "^6.7.0",
+    "graphql": "^14.1.1",
+    "graphql-iso-date": "^3.6.1",
     "mongoose": "^5.4.5"
   },
   "devDependencies": {

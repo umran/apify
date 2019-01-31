@@ -37,6 +37,7 @@ const Person = {
       item: {
         type: "association",
         ref: "Parent",
+        intransitive: false,
         from: "Parent",
         match: {
           local_field: "id",

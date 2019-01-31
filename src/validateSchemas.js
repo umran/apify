@@ -1,5 +1,6 @@
 const Ajv = require('ajv')
 const SchemaError = require('./errors').SchemaError
+const { associateReferences, mergeReferences, classifyReferences, validateDependencies } = require('./schemaUtils')
 
 // import type schemas
 const arraySchema = require('./schemas/types/array.json')
@@ -17,10 +18,16 @@ const rootSchema = require('./schemas/root.json')
 const ajv = new Ajv({ allErrors: true })
 const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, stringSchema, referenceSchema, associationSchema]).compile(rootSchema)
 
+
 module.exports = schemas => {
   Object.keys(schemas).forEach(schemaKey => {
     if(!validate(schemas[schemaKey])) {
       throw new SchemaError(`validationError, the following schema: ${schemaKey} is invalid. Please check that it conforms to the specification described at https://irukandjilabs.com/apify/spec.`)
     }
   })
+
+  const associatedReferences = associateReferences(schemas)
+  const mergedReferences = mergeReferences(associatedReferences)
+  const classifiedReferences = classifyReferences(schemas, mergedReferences)
+	const orderedSchemas = validateDependencies(schemas, associatedReferences)
 }

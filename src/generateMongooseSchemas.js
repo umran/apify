@@ -1,63 +1,40 @@
 const MongooseSchema = require('mongoose').Schema
-const { associateReferences, mergeReferences, classifyReferences, determineOrder } = require('./schemaUtils')
 
 module.exports = schemas => {
-  const associatedReferences = associateReferences(schemas)
-  const mergedReferences = mergeReferences(associatedReferences)
-  const classifiedReferences = classifyReferences(schemas, mergedReferences)
+  const generatedSchemas = Object.keys(schemas).reduce((accumulator, schemaKey) => {
+    accumulator[schemaKey] = () => generateSchema(schemas[schemaKey], schemas, generatedSchemas)
 
-  // determine order of schema generation based on dependencies
-  const schemaOrder = determineOrder(schemas, associatedReferences)
+    return accumulator
+  }, {})
 
-  var generatedSchemaContents = {}
-  var generatedSchemas = {}
-
-  for (var i = 0; i < schemaOrder.length; i++) {
-    const { generatedSchemaContent, generatedSchema } = generateSchema(schemas[schemaOrder[i]], classifiedReferences, generatedSchemaContents, generatedSchemas)
-
-    generatedSchemaContents[schemaOrder[i]] = generatedSchemaContent
-    generatedSchemas[schemaOrder[i]] = generatedSchema
-  }
-
-  return {
-    generatedSchemaContents,
-    generatedSchemas
-  }
+  return generatedSchemas
 }
 
-const generateSchema = (schema, classifiedReferences, generatedSchemaContents, generatedSchemas) => {
-  const generatedSchemaObject = Object.keys(schema.fields).reduce((generated, fieldKey) => {
-    const { field, fieldContent } = generateField(schema.fields[fieldKey], classifiedReferences, generatedSchemaContents, generatedSchemas)
-
-    generated.schema[fieldKey] = field
-    generated.schemaContent[fieldKey] = fieldContent ? fieldContent : field
+const generateSchema = (schema, schemas, generatedSchemas) => {
+  return new MongooseSchema(Object.keys(schema.fields).reduce((generated, fieldKey) => {
+    generated[fieldKey] = generateField(schema.fields[fieldKey], schemas, generatedSchemas)
 
     return generated
 
-  }, { schema: {}, schemaContent: {} })
-
-  return {
-    generatedSchema: new MongooseSchema(generatedSchemaObject.schema),
-    generatedSchemaContent: generatedSchemaObject.schemaContent
-  }
+  }, {}))
 }
 
-const generateField = (field, classifiedReferences, generatedSchemaContents, generatedSchemas) => {
+const generateField = (field, schemas, generatedSchemas) => {
   switch (field.type) {
     case "string":
-      return { field: generateStringField(field) }
+      return generateStringField(field)
     case "integer":
-      return { field: generateNumberField(field) }
+      return generateNumberField(field)
     case "float":
-      return { field: generateNumberField(field) }
+      return generateNumberField(field)
     case "boolean":
-      return { field: generateBooleanField(field) }
+      return generateBooleanField(field)
     case "date":
-      return { field: generateDateField(field) }
+      return generateDateField(field)
     case "array":
-      return generateArrayField(field, classifiedReferences, generatedSchemaContents, generatedSchemas)
+      return generateArrayField(field, schemas, generatedSchemas)
     case "reference":
-      return generateReferenceField(field, classifiedReferences, generatedSchemaContents, generatedSchemas)
+      return generateReferenceField(field, schemas, generatedSchemas)
     case "association":
       return generateAssociationField(field)
   }
@@ -127,50 +104,34 @@ const generateDateField = field => {
   return result
 }
 
-const generateReferenceField = (field, classifiedReferences, generatedSchemaContents, generatedSchemas) => {
-  if (classifiedReferences[field.ref] === "collection") {
+const generateReferenceField = (field, schemas, generatedSchemas) => {
+  if (schemas[field.ref].class === "collection") {
     return {
-      field: {
-        type: MongooseSchema.Types.ObjectId,
-        required: field.required,
-        ref: field.ref
-      }
+      type: MongooseSchema.Types.ObjectId,
+      required: field.required,
+      ref: field.ref
     }
   }
 
   return {
-    fieldContent: {
-      type: generatedSchemaContents[field.ref],
-      required: field.required
-    },
-    field: {
-      type: generatedSchemas[field.ref],
-      required: field.required
-    }
+    type: generatedSchemas[field.ref](),
+    required: field.required
   }
 }
 
 const generateAssociationField = (field) => {
   return {
-    field: {
-      type: MongooseSchema.Types.ObjectId,
-      required: false,
-      ref: field.ref
-    }
+    type: MongooseSchema.Types.ObjectId,
+    required: false,
+    ref: field.ref
   }
 }
 
-const generateArrayField = (_field, classifiedReferences, generatedSchemaContents, generatedSchemas) => {
-  const { field, fieldContent } = generateField(_field.item, classifiedReferences, generatedSchemaContents, generatedSchemas)
+const generateArrayField = (_field, schemas, generatedSchemas) => {
+  const field = generateField(_field.item, schemas, generatedSchemas)
 
   return {
-    fieldContent: fieldContent ? {
-      type: [fieldContent],
-      required: _field.required
-    } : fieldContent,
-    field: {
-      type: [field],
-      required: _field.required
-    }
+    type: [field],
+    required: _field.required
   }
 }

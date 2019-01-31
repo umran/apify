@@ -11,7 +11,7 @@ describe('generateElasticMappings()', () => {
     const generatedMappings = generateElasticMappings(configurationSchemas)
 
     Object.keys(generatedMappings).forEach(generatedMappingKey => {
-      expect(generatedMappings[generatedMappingKey]).to.deep.equal(expectedElasticMappings[generatedMappingKey])
+      expect(generatedMappings[generatedMappingKey]()).to.deep.equal(expectedElasticMappings[generatedMappingKey])
     })
 
   })

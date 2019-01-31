@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const generateMongooseSchemas = require('./generateMongooseSchemas')
 
 module.exports = schemas => {
-  const mongooseSchemas = generateMongooseSchemas(schemas).generatedSchemas
+  const mongooseSchemas = generateMongooseSchemas(schemas)
   return Object.keys(schemas).reduce((accumulator, schemaKey) => {
     if (schemas[schemaKey].class === 'collection') {
-      accumulator[schemaKey] = mongoose.model(schemaKey, mongooseSchemas[schemaKey])
+      accumulator[schemaKey] = mongoose.model(schemaKey, mongooseSchemas[schemaKey]())
     }
 
     return accumulator

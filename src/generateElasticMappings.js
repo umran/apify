@@ -1,26 +1,17 @@
-const { associateReferences, mergeReferences, classifyReferences, determineOrder } = require('./schemaUtils')
-
 module.exports = schemas => {
-  const associatedReferences = associateReferences(schemas)
-  const mergedReferences = mergeReferences(associatedReferences)
-  const classifiedReferences = classifyReferences(schemas, mergedReferences)
+  const generatedMappings = Object.keys(schemas).reduce((accumulator, schemaKey) => {
+    accumulator[schemaKey] = () => generateMapping(schemaKey, schemas[schemaKey], generatedMappings)
 
-  // determine order of schema generation based on dependencies
-  const schemaOrder = determineOrder(schemas, associatedReferences)
-
-  var generatedMappings = {}
-
-  for (var i = 0; i < schemaOrder.length; i++) {
-    generatedMappings[schemaOrder[i]] = generateMapping(schemas[schemaOrder[i]], generatedMappings)
-  }
+    return accumulator
+  }, {})
 
   return generatedMappings
 }
 
-const generateMapping = (schema, generatedMappings) => {
+const generateMapping = (schemaKey, schema, generatedMappings) => {
   return {
     properties: Object.keys(schema.fields).reduce((generated, fieldKey) => {
-      const field = generateField(schema.fields[fieldKey], generatedMappings)
+      const field = generateField(schema.fields[fieldKey], schemaKey, generatedMappings)
 
       if (field) {
         generated[fieldKey] = field
@@ -32,7 +23,7 @@ const generateMapping = (schema, generatedMappings) => {
   }
 }
 
-const generateField = (field, generatedMappings) => {
+const generateField = (field, schemaKey, generatedMappings) => {
   switch (field.type) {
     case "string":
       return generateStringField(field)
@@ -45,9 +36,9 @@ const generateField = (field, generatedMappings) => {
     case "date":
       return generateDateField(field)
     case "array":
-      return generateArrayField(field, generatedMappings)
+      return generateArrayField(field, schemaKey, generatedMappings)
     case "reference":
-      return generateReferenceField(field, generatedMappings)
+      return generateReferenceField(field, schemaKey, generatedMappings)
   }
 }
 
@@ -86,18 +77,21 @@ const generateDateField = field => {
   }
 }
 
-const generateReferenceField = (field, generatedMappings) => {
-  if (generatedMappings[field.ref]) {
-    return {
-      type: 'object',
-      enabled: field.es_indexed,
-      properties: generatedMappings[field.ref].properties
-    }
+const generateReferenceField = (field, schemaKey, generatedMappings) => {
+  // ignore self references
+  if (schemaKey === field.ref) {
+    return
+  }
+
+  return {
+    type: 'object',
+    enabled: field.es_indexed,
+    properties: generatedMappings[field.ref]().properties
   }
 }
 
-const generateArrayField = (field, generatedMappings) => {
-  const _field = generateField(field.item, generatedMappings)
+const generateArrayField = (field, schemaKey, generatedMappings) => {
+  const _field = generateField(field.item, schemaKey, generatedMappings)
 
   if (!_field) {
     return
