@@ -2,16 +2,14 @@ const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLInt, GraphQLFloat, Gra
 const { GraphQLDateTime } = require('graphql-iso-date')
 
 module.exports = (schemas, resolver) => {
-  const types = Object.keys(schemas).reduce((accumulator, schemaKey) => {
+  return Object.keys(schemas).reduce((accumulator, schemaKey) => {
     accumulator[schemaKey] = {
-      objectType: () => createObjectType(schemaKey, schemas, types, resolver)
+      objectType: createObjectType(schemaKey, schemas, accumulator, resolver)
     }
 
     return accumulator
-    
-  }, {})
 
-  return types
+  }, {})
 }
 
 const createObjectType = (schemaKey, schemas, types, resolver) => {
@@ -102,11 +100,11 @@ const generateDateField = (field, inArray) => {
 const generateReferenceField = (fieldKey, field, schemas, types, resolver, inArray) => {
 
   if (inArray) {
-    return types[field.ref].objectType()
+    return types[field.ref].objectType
   }
 
   let result = {
-    type: types[field.ref].objectType()
+    type: types[field.ref].objectType
   }
 
   if (schemas[field.ref] === 'collection') {
@@ -130,5 +128,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
       return await resolver('find', field.ref, root, args, context)
     }
   }
+
+  return result
 }
 

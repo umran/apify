@@ -1,12 +1,10 @@
 module.exports = schemas => {
-  const generatedMappings = Object.keys(schemas).reduce((accumulator, schemaKey) => {
-    accumulator[schemaKey] = () => generateMapping(schemaKey, schemas[schemaKey], generatedMappings)
+  return Object.keys(schemas).reduce((accumulator, schemaKey) => {
+    accumulator[schemaKey] = () => generateMapping(schemaKey, schemas[schemaKey], accumulator)
 
     return accumulator
     
   }, {})
-
-  return generatedMappings
 }
 
 const generateMapping = (schemaKey, schema, generatedMappings) => {

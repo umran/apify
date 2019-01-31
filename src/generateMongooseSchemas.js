@@ -1,13 +1,11 @@
 const MongooseSchema = require('mongoose').Schema
 
 module.exports = schemas => {
-  const generatedSchemas = Object.keys(schemas).reduce((accumulator, schemaKey) => {
-    accumulator[schemaKey] = () => generateSchema(schemas[schemaKey], schemas, generatedSchemas)
+  return Object.keys(schemas).reduce((accumulator, schemaKey) => {
+    accumulator[schemaKey] = () => generateSchema(schemas[schemaKey], schemas, accumulator)
 
     return accumulator
   }, {})
-
-  return generatedSchemas
 }
 
 const generateSchema = (schema, schemas, generatedSchemas) => {
