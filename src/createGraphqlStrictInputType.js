@@ -5,7 +5,7 @@ module.exports = (schemaKey, schemas, types) => {
   const fields = schemas[schemaKey].fields
 
   return new GraphQLInputObjectType({
-    name: `_${schemaKey}Input`,
+    name: `_${schemaKey}StrictInput`,
     fields: () => Object.keys(fields).reduce((accumulator, fieldKey) => {
       accumulator[fieldKey] = generateField(fields[fieldKey], schemas, types)
       
@@ -37,7 +37,7 @@ const generateField = (field, schemas, types, inArray=false) => {
 }
 
 const generateStringField = (field, inArray) => {
-  let type = GraphQLString
+  let type = field.required ? new GraphQLNonNull(GraphQLString) : GraphQLString
 
   if (inArray) {
     return type
@@ -49,7 +49,7 @@ const generateStringField = (field, inArray) => {
 }
 
 const generateIntegerField = (field, inArray) => {
-  let type = GraphQLInt
+  let type = field.required ? new GraphQLNonNull(GraphQLInt) : GraphQLInt
 
   if (inArray) {
     return type
@@ -61,7 +61,7 @@ const generateIntegerField = (field, inArray) => {
 }
 
 const generateFloatField = (field, inArray) => {
-  let type = GraphQLFloat
+  let type = field.required ? new GraphQLNonNull(GraphQLFloat) : GraphQLFloat
 
   if (inArray) {
     return type
@@ -73,7 +73,7 @@ const generateFloatField = (field, inArray) => {
 }
 
 const generateBooleanField = (field, inArray) => {
-  let type = GraphQLBoolean
+  let type = field.required ? new GraphQLNonNull(GraphQLBoolean) : GraphQLBoolean
 
   if (inArray) {
     return type
@@ -85,7 +85,7 @@ const generateBooleanField = (field, inArray) => {
 }
 
 const generateDateField = (field, inArray) => {
-  let type = GraphQLDateTime
+  let type = field.required ? new GraphQLNonNull(GraphQLDateTime) : GraphQLDateTime
 
   if (inArray) {
     return type
@@ -99,9 +99,9 @@ const generateDateField = (field, inArray) => {
 const generateReferenceField = (field, schemas, types, inArray) => {
   let type
   if (schemas[field.ref].class === 'collection') {
-    type = GraphQLID
+    type = field.required ? new GraphQLNonNull(GraphQLID) : GraphQLID
   } else {
-    type = types[field.ref].inputType
+    type = field.required ? new GraphQLNonNull(types[field.ref].strictInputType) : types[field.ref].strictInputType
   }
 
   if (inArray) {
@@ -114,7 +114,7 @@ const generateReferenceField = (field, schemas, types, inArray) => {
 }
 
 const generateArrayField = (field, schemas, types) => {
-  let type = new GraphQLList(generateField(field.item, schemas, types, true))
+  let type = field.required ? new GraphQLNonNull(new GraphQLList(generateField(field.item, schemas, types, true))) : new GraphQLList(generateField(field.item, schemas, types, true))
 
   return {
     type
