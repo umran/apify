@@ -19,7 +19,7 @@ module.exports = (schemas, types, resolver) => {
 
 const createFindOneField = (schemaKey, types, resolver) => {
   return {
-    type: new GraphQLNonNull(types[schemaKey].objectType),
+    type: types[schemaKey].objectType,
     args: {
       _id: {
         type: new GraphQLNonNull(GraphQLID)
