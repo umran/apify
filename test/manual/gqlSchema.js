@@ -1,8 +1,10 @@
-const { GraphQLList, GraphQLObjectType, GraphQLSchema, printSchema } = require('graphql')
+const { printSchema } = require('graphql')
 
 const generateGraphqlTypes = require('../../src/generateGraphqlTypes')
 const generateGraphqlQueries = require('../../src/generateGraphqlQueries')
 const generateGraphqlMutations = require('../../src/generateGraphqlMutations')
+const generateGraphqlSchema = require('../../src/generateGraphqlSchema')
+
 const schemas = require('../data/configurationSchemas')
 
 const resolver = (method, model, root, args, context) => {
@@ -10,12 +12,10 @@ const resolver = (method, model, root, args, context) => {
 }
 
 const types = generateGraphqlTypes(schemas, resolver)
-const Query = generateGraphqlQueries(schemas, types, resolver)
-const Mutation = generateGraphqlMutations(schemas, types, resolver)
+const query = generateGraphqlQueries(schemas, types, resolver)
+const mutation = generateGraphqlMutations(schemas, types, resolver)
 
-const schema = new GraphQLSchema({
-  query: Query,
-  mutation: Mutation
-})
+
+const schema = generateGraphqlSchema(query, mutation)
 
 console.log(printSchema(schema))
