@@ -10,6 +10,26 @@ const Contact = {
     email: {
       type: 'keyword',
       index: true
+    },
+    phone_secondary: {
+      type: 'integer',
+      index: true
+    },
+    email_secondary: {
+      type: 'keyword',
+      index: true
+    },
+    version: {
+      type: 'float',
+      index: true
+    },
+    date_added: {
+      type: 'date',
+      index: true
+    },
+    residential: {
+      type: 'boolean',
+      index: true
     }
   }
 }
@@ -21,6 +41,11 @@ const Person = {
       index: true
     },
     contact: {
+      type: 'object',
+      enabled: true,
+      properties: Contact.properties
+    },
+    contact_secondary: {
       type: 'object',
       enabled: true,
       properties: Contact.properties

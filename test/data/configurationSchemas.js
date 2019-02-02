@@ -12,6 +12,32 @@ const Contact = {
       required: true,
       es_indexed: true,
       es_keyword: true
+    },
+    phone_secondary: {
+      type: "integer",
+      required: false,
+      es_indexed: true
+    },
+    email_secondary: {
+      type: "string",
+      required: false,
+      es_indexed: true,
+      es_keyword: true
+    },
+    version: {
+      type: "float",
+      required: false,
+      es_indexed: true
+    },
+    date_added: {
+      type: "date",
+      required: false,
+      es_indexed: true
+    },
+    residential: {
+      type: "boolean",
+      required: false,
+      es_indexed: true
     }
   }
 }
@@ -28,6 +54,12 @@ const Person = {
     contact: {
       type: "reference",
       required: true,
+      ref: "Contact",
+      es_indexed: true
+    },
+    contact_secondary: {
+      type: "reference",
+      required: false,
       ref: "Contact",
       es_indexed: true
     },
