@@ -40,6 +40,26 @@ const Person = {
       type: 'text',
       index: true
     },
+    name_secondary: {
+      type: 'text',
+      index: true
+    },
+    clearance: {
+      type: 'integer',
+      index: true
+    },
+    temperature: {
+      type: 'float',
+      index: true
+    },
+    contractor: {
+      type: 'boolean',
+      index: true
+    },
+    conscription_date: {
+      type: 'date',
+      index: true
+    },
     contact: {
       type: 'object',
       enabled: true,

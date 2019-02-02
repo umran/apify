@@ -51,6 +51,32 @@ const Person = {
       es_indexed: true,
       es_keyword: false
     },
+    name_secondary: {
+      type: "string",
+      required: false,
+      es_indexed: true,
+      es_keyword: false
+    },
+    clearance: {
+      type: "integer",
+      required: false,
+      es_indexed: true
+    },
+    temperature: {
+      type: "float",
+      required: false,
+      es_indexed: true
+    },
+    contractor: {
+      type: "boolean",
+      required: false,
+      es_indexed: true
+    },
+    conscription_date: {
+      type: "date",
+      required: false,
+      es_indexed: true
+    },
     contact: {
       type: "reference",
       required: true,
