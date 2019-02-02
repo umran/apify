@@ -1,4 +1,31 @@
 // configuration schemas
+const Dummy = {
+  class: "embedded",
+  fields: {
+    person: {
+      type: "reference",
+      required: false,
+      ref: "Person",
+      es_indexed: true
+    },
+    version: {
+      type: "float",
+      required: true,
+      es_indexed: true
+    },
+    date: {
+      type: "date",
+      required: true,
+      es_indexed: true
+    },
+    residential: {
+      type: "boolean",
+      required: true,
+      es_indexed: true
+    }
+  }
+}
+
 const DummyRequired = {
   class: "embedded",
   fields: {
@@ -58,7 +85,7 @@ const DummyRequired = {
     },
     versions: {
       type: "array",
-      required: true,
+      required: false,
       item: {
         type: "float",
         required: false,
@@ -251,6 +278,12 @@ const Address = {
 const Parent = {
   class: "collection",
   fields: {
+    dummy: {
+      type: "reference",
+      required: true,
+      ref: "Dummy",
+      es_indexed: true
+    },
     dummy_required: {
       type: "reference",
       required: true,
@@ -394,6 +427,7 @@ const Parent = {
 }
 
 module.exports = {
+  Dummy,
   DummyRequired,
   Person,
   Contact,

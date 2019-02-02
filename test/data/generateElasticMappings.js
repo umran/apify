@@ -73,6 +73,28 @@ const Person = {
   }
 }
 
+const Dummy = {
+  properties: {
+    person: {
+      type: 'object',
+      enabled: true,
+      properties: Person.properties
+    },
+    version: {
+      type: 'float',
+      index: true
+    },
+    date: {
+      type: 'date',
+      index: true
+    },
+    residential: {
+      type: 'boolean',
+      index: true
+    }
+  }
+}
+
 const DummyRequired = {
   properties: {
     contacts: {
@@ -139,6 +161,12 @@ const Address = {
 const Parent = {
   properties: {
     // dummy references field
+    dummy: {
+      type: 'object',
+      enabled: true,
+      properties: Dummy.properties
+    },
+
     dummy_required: {
       type: 'object',
       enabled: true,
@@ -244,6 +272,7 @@ const Parent = {
 
 module.exports = {
   expectedElasticMappings: {
+    Dummy,
     DummyRequired,
     Person,
     Contact,
