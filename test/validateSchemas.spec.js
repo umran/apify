@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const validateSchemas = require('../src/validation/validateSchemas')
+const validateSchemas = require('../src/validator/validateSchemas')
 const data = require('./data').validateSchemas
 const errors = require('../src/errors')
 
