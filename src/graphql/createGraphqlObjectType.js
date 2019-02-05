@@ -114,7 +114,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
   if ((field.item.type === 'reference' || field.item.type === 'association') && schemas[field.item.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: { $in: root[fieldKey] }, _options: { pagination: false } }
-      let body = resolver('find', field.ref, root, args, context)
+      let body = await resolver('find', field.ref, root, args, context)
       return body.results
     }
   }
