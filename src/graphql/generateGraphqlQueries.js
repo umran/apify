@@ -52,7 +52,7 @@ const createSearchField = (schemaKey, types, resolver) => {
         type: new GraphQLNonNull(GraphQLString)
       },
       _options: {
-        type: FindOptions
+        type: SearchOptions
       }
     },
     resolve: async (root, args, context) => {

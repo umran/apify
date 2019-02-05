@@ -1,0 +1,1 @@
+exports.validateSchemas = require('./validateSchemas')
