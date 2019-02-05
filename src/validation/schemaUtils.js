@@ -1,5 +1,5 @@
-const SchemaError = require('./errors').SchemaError
-const { exists } = require('./utils')
+const SchemaError = require('../errors').SchemaError
+const { exists } = require('../utils')
 
 const validateReferenceField = (schemaKey, schema, field) => {
   if (field.ref !== schemaKey) {

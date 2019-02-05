@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const generateMongooseSchemas = require('../src/generateMongooseSchemas')
+const generateMongooseSchemas = require('../src/mongoose/generateMongooseSchemas')
 const data = require('./data').generateMongooseSchemas
 const errors = require('../src/errors')
 const MongooseSchema = require('mongoose').Schema

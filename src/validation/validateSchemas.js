@@ -1,5 +1,5 @@
 const Ajv = require('ajv')
-const SchemaError = require('./errors').SchemaError
+const SchemaError = require('../errors').SchemaError
 const { associateReferences, mergeReferences, classifyReferences, validateDependencies } = require('./schemaUtils')
 
 // import type schemas

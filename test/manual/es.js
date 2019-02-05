@@ -1,4 +1,4 @@
-const generateElasticMappings = require('../../src/generateElasticMappings')
+const generateElasticMappings = require('../../src/elasticsearch/generateElasticMappings')
 const data = require('../data').generateElasticMappings
 
 const configurationSchemas = data.configurationSchemas

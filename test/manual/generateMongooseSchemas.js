@@ -1,4 +1,4 @@
-const generateMongooseSchemas = require('../../src/generateMongooseSchemas_refactored')
+const generateMongooseSchemas = require('../../src/mongoose/generateMongooseSchemas_refactored')
 const configurationSchemas = require('../data/configurationSchemas')
 
 const mongooseSchemas = generateMongooseSchemas(configurationSchemas)

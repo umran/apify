@@ -1,6 +1,6 @@
 const expect = require('chai').expect
-const generateMongooseSchemas = require('../src/generateMongooseSchemas')
-const generateMongooseModels = require('../src/generateMongooseModels')
+const generateMongooseSchemas = require('../src/mongoose/generateMongooseSchemas')
+const generateMongooseModels = require('../src/mongoose/generateMongooseModels')
 const data = require('./data').generateMongooseModels
 const errors = require('../src/errors')
 

@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const generateGraphqlTypes = require('../src/generateGraphqlTypes')
+const generateGraphqlTypes = require('../src/graphql/generateGraphqlTypes')
 const data = require('./data').generateGraphqlTypes
 const errors = require('../src/errors')
 const { GraphQLObjectType } = require('graphql')

@@ -1,8 +1,8 @@
 const expect = require('chai').expect
-const generateGraphqlTypes = require('../src/generateGraphqlTypes')
-const generateGraphqlQueries = require('../src/generateGraphqlQueries')
-const generateGraphqlMutations = require('../src/generateGraphqlMutations')
-const generateGraphqlSchema = require('../src/generateGraphqlSchema')
+const generateGraphqlTypes = require('../src/graphql/generateGraphqlTypes')
+const generateGraphqlQueries = require('../src/graphql/generateGraphqlQueries')
+const generateGraphqlMutations = require('../src/graphql/generateGraphqlMutations')
+const generateGraphqlSchema = require('../src/graphql/generateGraphqlSchema')
 const data = require('./data').generateGraphqlSchema
 const errors = require('../src/errors')
 const { GraphQLSchema } = require('graphql')

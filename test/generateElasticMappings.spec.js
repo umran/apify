@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-const generateElasticMappings = require('../src/generateElasticMappings')
+const generateElasticMappings = require('../src/elasticsearch/generateElasticMappings')
 const data = require('./data').generateElasticMappings
 
 describe('generateElasticMappings()', () => {

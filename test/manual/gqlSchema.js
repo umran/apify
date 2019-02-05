@@ -1,9 +1,9 @@
 const { printSchema } = require('graphql')
 
-const generateGraphqlTypes = require('../../src/generateGraphqlTypes')
-const generateGraphqlQueries = require('../../src/generateGraphqlQueries')
-const generateGraphqlMutations = require('../../src/generateGraphqlMutations')
-const generateGraphqlSchema = require('../../src/generateGraphqlSchema')
+const generateGraphqlTypes = require('../../src/graphql/generateGraphqlTypes')
+const generateGraphqlQueries = require('../../src/graphql/generateGraphqlQueries')
+const generateGraphqlMutations = require('../../src/graphql/generateGraphqlMutations')
+const generateGraphqlSchema = require('../../src/graphql/generateGraphqlSchema')
 
 const schemas = require('../data/configurationSchemas')
 
