@@ -82,7 +82,7 @@ Grades: {
 In order to reference an embedded document from within a collection level document, simply create a reference field within the collection level document that points to the embedded document, like so:
 
 ```javascript
-// the embedded document
+// an embedded document
 Grades: {
   class: 'embedded',
   fields: {
@@ -107,7 +107,7 @@ Grades: {
   }
 }
 
-// the collection level document
+// a collection level document
 Student: {
   class: 'collection',
   fields: {
