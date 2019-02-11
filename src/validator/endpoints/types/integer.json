@@ -1,0 +1,51 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/integer.json",
+  "type": "object",
+  "title": "The Integer Schema",
+  "required": [
+    "type",
+    "required",
+    "es_indexed"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["integer"]
+    },
+    "required": {
+      "$id": "#/properties/required",
+      "type": "boolean",
+      "title": "The Required Schema"
+    },
+    "es_indexed": {
+      "$id": "#/properties/es_indexed",
+      "type": "boolean",
+      "title": "The EsIndexed Schema"
+    },
+    "es_boost": {
+      "$id": "#/properties/es_boost",
+      "type": "number",
+      "title": "The EsBoost Schema"
+    },
+    "enum": {
+      "$id": "#/properties/enum",
+      "type": "array",
+      "title": "The Enum Schema",
+      "items": {
+        "$id": "#/properties/enum/items",
+        "type": "number",
+        "title": "The Items Schema"
+      }
+    },
+    "default": {
+      "$id": "#/properties/default",
+      "type": "number",
+      "title": "The Default Schema"
+    }
+  },
+  "additionalProperties": false
+}

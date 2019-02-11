@@ -1,0 +1,69 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/association.json",
+  "type": "object",
+  "title": "The Association Schema",
+  "required": [
+    "type",
+    "ref",
+    "intransitive"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["association"]
+    },
+    "ref": {
+      "$id": "#/properties/ref",
+      "type": "string",
+      "title": "The Ref Schema"
+    },
+    "intransitive": {
+      "$id": "#/properties/intransitive",
+      "type": "boolean",
+      "title": "The Intransitive Schema"
+    },
+    "from": {
+      "$id": "#/properties/from",
+      "type": "string",
+      "title": "The From Schema"
+    },
+    "match": {
+      "$id": "#/properties/match",
+      "type": "object",
+      "title": "The Match Schema",
+      "required": [
+        "local_field",
+        "foreign_field"
+      ],
+      "properties": {
+        "local_field": {
+          "$id": "#/properties/match/local_field",
+          "type": "string",
+          "title": "The LocalField Schema"
+        },
+        "foreign_field": {
+          "$id": "#/properties/match/foreign_field",
+          "type": "string",
+          "title": "The ForeignField Schema"
+        }
+      },
+      "additionalProperties": false
+    },
+    "select": {
+      "$id": "#/properties/select",
+      "type": "string",
+      "title": "The Select Schema"
+    }
+  },
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "intransitive": { "enum": [false] }
+    }
+  },
+  "then": { "required": ["from", "match", "select"] }
+}

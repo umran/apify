@@ -1,0 +1,37 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/reference.json",
+  "type": "object",
+  "title": "The Reference Schema",
+  "required": [
+    "type",
+    "ref",
+    "required",
+    "es_indexed"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["reference"]
+    },
+    "ref": {
+      "$id": "#/properties/ref",
+      "type": "string",
+      "title": "The Ref Schema"
+    },
+    "required": {
+      "$id": "#/properties/required",
+      "type": "boolean",
+      "title": "The Required Schema"
+    },
+    "es_indexed": {
+      "$id": "#/properties/es_indexed",
+      "type": "boolean",
+      "title": "The EsIndexed Schema"
+    }
+  },
+  "additionalProperties": false
+}

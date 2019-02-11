@@ -1,0 +1,41 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://irukandjilabs.com/apify/spec/schemas/types/date.json",
+  "type": "object",
+  "title": "The Date Schema",
+  "required": [
+    "type",
+    "required",
+    "es_indexed"
+  ],
+  "properties": {
+    "type": {
+      "$id": "#/properties/type",
+      "type": "string",
+      "title": "The Type Schema",
+      "enum": ["date"]
+    },
+    "required": {
+      "$id": "#/properties/required",
+      "type": "boolean",
+      "title": "The Required Schema"
+    },
+    "es_indexed": {
+      "$id": "#/properties/es_indexed",
+      "type": "boolean",
+      "title": "The EsIndexed Schema"
+    },
+    "es_boost": {
+      "$id": "#/properties/es_boost",
+      "type": "number",
+      "title": "The EsBoost Schema"
+    },
+    "default": {
+      "$id": "#/properties/default",
+      "type": "string",
+      "title": "The Default Schema"
+    }
+  },
+  "additionalProperties": false
+}
