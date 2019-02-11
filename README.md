@@ -13,7 +13,7 @@ Apify generates GraphQL APIs for backends that use mongodb as a primary store, r
 
 For each collection level document that is defined, Apify automatically creates the relevant collection in mongodb along with its elasticsearch mappings. It also defines GraphQL endpoints for the collection that allows CRUD operations as well as fulltext search of documents via elasticsearch.
 
-## Defining Document Schemas
+## Defining Document Schemas
 
 Documents are defined as javascript objects with the properties: 'class' and 'fields'.
 
