@@ -216,7 +216,7 @@ Date fields have a required property: `type` whose value must be set to "date". 
 | `type` | true | String | Tells Apify how to parse values associated with the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
-| `default` | false | String | Specifies a default date to use during creation of the document. Takes any valid ISO Date string or the value: "current_date" |
+| `default` | false | String | Specifies a default date to use during creation of the document. Takes any valid ISO Date string or the value: "current_date", which generates a timestamp during query time (on create or update) |
 
 #### Reference Fields
 
