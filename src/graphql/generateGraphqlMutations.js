@@ -26,7 +26,13 @@ const createCreateField = (schemaKey, schemas, types, resolver) => {
       return accumulator
     }, {}),
     resolve: async (root, args, context) => {
-      return await resolver('create', schemaKey, root, args, context)
+      return await resolver({
+        method: 'create',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }
@@ -39,7 +45,13 @@ const createUpdateField = (schemaKey, schemas, types, resolver) => {
       return accumulator
     }, { _id: { type: new GraphQLNonNull(GraphQLID) } }),
     resolve: async (root, args, context) => {
-      return await resolver('update', schemaKey, root, args, context)
+      return await resolver({
+        method: 'update',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }
@@ -53,7 +65,13 @@ const createDeleteField = (schemaKey, resolver) => {
       }
     },
     resolve: async (root, args, context) => {
-      return await resolver('delete', schemaKey, root, args, context)
+      return await resolver({
+        method: 'delete',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }

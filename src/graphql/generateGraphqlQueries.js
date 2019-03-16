@@ -26,7 +26,13 @@ const createFindOneField = (schemaKey, types, resolver) => {
       }
     },
     resolve: async (root, args, context) => {
-      return await resolver('findOne', schemaKey, root, args, context)
+      return await resolver({
+        method: 'findOne',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }
@@ -39,7 +45,13 @@ const createFindField = (schemaKey, schemas, types, resolver) => {
       return accumulator
     }, { _id: { type: GraphQLID }, _options: { type: FindOptions } }),
     resolve: async (root, args, context) => {
-      return await resolver('find', schemaKey, root, args, context)
+      return await resolver({
+        method: 'find',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }
@@ -56,7 +68,13 @@ const createSearchField = (schemaKey, types, resolver) => {
       }
     },
     resolve: async (root, args, context) => {
-      return await resolver('search', schemaKey, root, args, context)
+      return await resolver({
+        method: 'search',
+        collection: schemaKey,
+        root,
+        args,
+        context
+      })
     }
   }
 }

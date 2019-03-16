@@ -97,7 +97,14 @@ const generateReferenceField = (fieldKey, field, schemas, types, resolver, inArr
   if (schemas[field.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: root[fieldKey] }
-      return await resolver('findOne', field.ref, root, args, context)
+
+      return await resolver({
+        method: 'findOne',
+        collection: field.ref,
+        root,
+        args,
+        context
+      })
     }
   }
 
@@ -112,7 +119,15 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
   if (field.item.type === 'reference' && schemas[field.item.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: { $in: root[fieldKey] }, _options: { pagination: false } }
-      let body = await resolver('find', field.ref, root, args, context)
+
+      let body = await resolver({
+        method: 'find',
+        collection: field.ref,
+        root,
+        args,
+        context
+      })
+
       return body.results
     }
   }

@@ -4,8 +4,14 @@ const generateMongooseModels = require('../src/mongoose/generateMongooseModels')
 const data = require('./data').generateMongooseModels
 const errors = require('../src/errors')
 
+const mongoose = require('mongoose')
+
 describe('generateMongooseModels()', () => {
   it('should generate mongoose models for all collection level schemas', () => {
+
+    // cleanup mongoose
+    mongoose.models = {}
+    mongoose.modelSchemas = {}
 
     const configurationSchemas = data.configurationSchemas
     const mongooseSchemas = generateMongooseSchemas(configurationSchemas)
