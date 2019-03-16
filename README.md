@@ -28,7 +28,7 @@ Collection class documents are documents that will be stored in MongoDB under a 
 See below for an example schema of a collection class document.
 
 ```javascript
-Student: {
+const Student = {
   class: 'collection',
   fields: {
     firstName: {
@@ -54,7 +54,7 @@ Embedded documents are, as the name suggests, documents that will not be stored 
 See below for an example schema of an embedded document.
 
 ```javascript
-Grades: {
+const Grades = {
   class: 'embedded',
   fields: {
     mathematics: {
@@ -83,7 +83,7 @@ In order to reference an embedded document from within a collection level docume
 
 ```javascript
 // an embedded document
-Grades: {
+const Grades = {
   class: 'embedded',
   fields: {
     mathematics: {
@@ -108,7 +108,7 @@ Grades: {
 }
 
 // a collection level document that references the above defined embedded document
-Student: {
+const Student = {
   class: 'collection',
   fields: {
     firstName: {
@@ -165,7 +165,7 @@ String fields have a required property: `type` whose value must be set to "strin
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_keyword` | false | Boolean | Tells Elasticsearch whether to analyze the field as a `keyword` rather than as full-text; defaults to `false` |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
@@ -180,7 +180,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
@@ -191,7 +191,7 @@ Float fields have a required property: `type` whose value must be set to "intege
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
@@ -202,7 +202,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
@@ -213,7 +213,7 @@ Date fields have a required property: `type` whose value must be set to "date". 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 | `default` | false | String | Specifies a default date to use during creation of the document. Takes any valid ISO Date string or the value: "current_date", which generates a timestamp during query time (on create or update) |
@@ -225,7 +225,7 @@ Reference fields have a required property: `type` whose value must be set to "re
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field containing the nested document during indexing |
 | `ref` | true | String | Tells Apify which document this field is a reference to. The value should be the document name as defined in the document schema definition and is case sensitive  |
 
@@ -236,12 +236,12 @@ Array fields have a required property: `type` whose value must be set to "array"
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
 | `item` | true | Object <Field> | Tells Apify the field type of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array type because nesting arrays within arrays is not allowed |
 
-## Defining Resolvers
+## Defining the Root Resolver
 
-This section is unfinished at the moment.
+The root resolver is a single function that defines how API calls to the `create_`, `read_`, `update_`, `delete_` and `search_` endpoints are handled.
 
 ## Building the Backend Configuration
 
