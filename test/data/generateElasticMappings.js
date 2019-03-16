@@ -106,6 +106,11 @@ const DummyRequired = {
       enabled: true,
       properties: Contact.properties
     },
+    contact_dummy: {
+      type: 'object',
+      enabled: true,
+      properties: Contact.properties
+    },
     persons: {
       type: 'nested',
       properties: Person.properties

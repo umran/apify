@@ -35,6 +35,12 @@ const DummyRequired = {
       ref: "Contact",
       es_indexed: true
     },
+    contact_dummy: {
+      type: "reference",
+      required: false,
+      ref: "Contact",
+      es_indexed: true
+    },
     contacts: {
       type: "array",
       required: true,
