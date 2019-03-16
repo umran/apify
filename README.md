@@ -1,6 +1,6 @@
 # Apify
 
-A tool to bootstrap modern backends using GraphQL, MongoDB, Redis and Elasticsearch
+A tool to bootstrap modern backends using GraphQL, MongoDB, Redis and Elasticsearch.
 
 [![Build Status](https://travis-ci.org/umran/apify.svg?branch=master)](https://travis-ci.org/umran/apify)
 [![Coverage Status](https://img.shields.io/coveralls/github/umran/apify/master.svg)](https://coveralls.io/github/umran/apify?branch=master)
@@ -51,7 +51,7 @@ Student: {
 
 Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are usually documents that do not make much sense outside the context of a parent document. Because the shape of any individual document schema is flat, Apify requires you to define a separate embedded document for each level of nesting in order to define documents with deeply nested structures.
 
-See below for an example schema of an embedded document
+See below for an example schema of an embedded document.
 
 ```javascript
 Grades: {
@@ -160,7 +160,7 @@ Each field of a document has a couple of required properties. The field's `requi
 
 #### String Fields
 
-String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
+String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -175,7 +175,7 @@ String fields have a required property: `type` whose value must be set to "strin
 
 #### Integer Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer"
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -186,7 +186,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 
 #### Float Fields
 
-Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "float"
+Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "float".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -197,7 +197,7 @@ Float fields have a required property: `type` whose value must be set to "intege
 
 #### Boolean Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer"
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -208,7 +208,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 
 #### Date Fields
 
-Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date"
+Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -220,11 +220,24 @@ Date fields have a required property: `type` whose value must be set to "date". 
 
 #### Reference Fields
 
-This section is unfinished at the moment.
+Reference fields have a required property: `type` whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field of `type` "reference".
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field containing the nested document during indexing |
+| `ref` | true | String | Tells Apify which document this field is a reference to. The value should be the document name as defined in the document schema definition and is case sensitive  |
 
 #### Array Fields
 
-This section is unfinished at the moment.
+Array fields have a required property: `type` whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field of `type` "array".
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `item` | true | Object <Field> | Tells Apify the field `type` of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array `type` because nesting arrays within arrays is not allowed |
 
 ## Defining Resolvers
 
