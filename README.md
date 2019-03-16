@@ -222,7 +222,7 @@ Array fields have a required property: `type` whose value must be set to "array"
 | `type` | true | String | Tells Apify how to parse values of the field |
 | `item` | true | Object <Field> | Tells Apify the field type of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array type because nesting arrays within arrays is not allowed |
 
-## Composing the Document Schemas Together
+## Composing the Document Schemas Together
 
 All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
 
