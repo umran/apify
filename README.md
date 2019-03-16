@@ -133,7 +133,7 @@ const Student = {
 }
 ```
 
-### The `fields` Property
+### The `fields` Property
 
 The `fields` property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing of the field. Each key in the `fields` object corresponds to the name of a field, while its value is a `field` object that contains information about the field.
 
