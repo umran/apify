@@ -278,7 +278,7 @@ const Student = {
   }
 }
 
-// a schemas object that collects the above documents together
+// a schemas object that compiles the above documents together
 const schemas = {
   Grades,
   Student
