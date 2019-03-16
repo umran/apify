@@ -237,7 +237,7 @@ Array fields have a required property: `type` whose value must be set to "array"
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
 | `type` | true | String | Tells Apify how to parse values associated with the field |
-| `item` | true | Object <Field> | Tells Apify the field `type` of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array `type` because nesting arrays within arrays is not allowed |
+| `item` | true | Object <Field> | Tells Apify the field type of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array type because nesting arrays within arrays is not allowed |
 
 ## Defining Resolvers
 
