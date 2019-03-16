@@ -6,4 +6,4 @@ const generateResolver = ({ mongoose_models, elastic_mappings, schemas }) => asy
   return
 }
 
-const graphqlSchema = buildGraphql(schemas, generateResolver)
+const { graphqlSchema } = buildGraphql(schemas, generateResolver)

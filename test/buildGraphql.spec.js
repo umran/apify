@@ -18,7 +18,7 @@ describe('buildGraphql()', () => {
       return
     }
 
-    const graphqlSchema = buildGraphql(configurationSchemas, dummyGenerateResolver)
+    const { graphqlSchema } = buildGraphql(configurationSchemas, dummyGenerateResolver)
 
     expect(graphqlSchema).to.be.instanceOf(GraphQLSchema)
 

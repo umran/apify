@@ -13,5 +13,8 @@ module.exports = (schemas, generateResolver) => {
   const mutations = graphql.generateGraphqlMutations(schemas, types, resolver)
   const graphqlSchema = graphql.generateGraphqlSchema(queries, mutations)
 
-  return graphqlSchema
+  return {
+    graphqlSchema,
+    backend
+  }
 }
