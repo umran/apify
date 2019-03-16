@@ -278,17 +278,17 @@ const Student = {
   }
 }
 
-// a schemas object that compiles the above documents together
-const schemas = {
+// an object that compiles the above documents together
+const documentDefinitions = {
   Grades,
   Student
 }
 
 ```
 
-## Defining the Root Resolver
+## Defining the Resolver
 
-The root resolver is a single function that defines how API calls to the `create_`, `read_`, `update_`, `delete_` and `search_` endpoints are handled.
+The resolver is a single function that defines how GraphQL API calls to the `create_`, `read_`, `update_`, `delete_` and `search_` endpoints are handled. Because Apify generates the relevant Mongoose models and Elasticsearch mappings during runtime, the user is expected to create a curry function, call it `createResolver`, that accepts an object (which contains the Mongoose models and Elasticsearch mappings) as a parameter and returns an `async` resolver function. The resolver function returned by `createResolver` accepts an object containing details of the method being called by the GraphQL query, the particular document involved, the arguments of the query and the GraphQL context. With this information you could write logic within the resolver function that allows you to respond with the appropriate resource within the particular context of the query.
 
 ## Building the Backend Configuration
 
