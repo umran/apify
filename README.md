@@ -9,13 +9,13 @@ A tool to bootstrap modern backends using graphql, mongodb, redis and elasticsea
 
 ## Introduction
 
-Apify generates GraphQL APIs for backends that use mongodb as a primary store, redis as a caching layer, and rely on elasticsearch for full-text search, via a simple configuration interface that is designed to combine configuration options from mongoose and graphql schemas and elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on mongodb, elasticsearch and graphql to a single configuration file under a unified syntax.
+Apify generates GraphQL CRUD APIs that are tightly coupled with mongodb, via mongoose, as a primary store, optionally redis, among others as a cache store, and elasticsearch as full-text search engine, via a simple configuration interface that is designed to combine configuration options from mongoose, graphql schemas and elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on mongodb, elasticsearch and graphql to a single configuration file under a universal syntax.
 
-For each collection level document that is defined, Apify automatically creates the relevant collection in mongodb along with its elasticsearch mappings. It also defines GraphQL endpoints for the collection that allows CRUD operations as well as fulltext search of documents via elasticsearch.
+For each collection level document that is defined, Apify automatically creates the relevant collection in mongodb along with its elasticsearch mappings. It also defines GraphQL endpoints for each collection that allow CRUD operations as well as full-text search to be performed on documents right out of the box.
 
 ## Defining Document Schemas
 
-Documents are defined as javascript objects with the properties: 'class' and 'fields'.
+Defining document schemas is the first major step in setting up the server. Documents are defined as javascript objects that have the properties: 'class' and 'fields'.
 
 The 'fields' property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing.
 
@@ -23,7 +23,7 @@ The 'class' property takes a text value indicating the class of document. There 
 
 ### The Collection Class
 
-Collection class documents are documents that will be stored in mongodb under a collection. Therefore documents classified as collection are ideally standalone documents that are semantically significant in and of themselves.
+Collection class documents are documents that will be stored in mongodb under a collection. Documents classified as collection are ideally standalone documents that have meaning in and of themselves.
 
 See below for an example schema of a collection class document.
 
@@ -49,7 +49,7 @@ Student: {
 
 ### The Embedded Class
 
-Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather as part of an existing collection. Documents classified as embedded are ideally documents that do not make much sense outside the context of a parent document.
+Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather as part of an existing collection. Documents classified as embedded are ideally documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
 
 See below for an example schema of an embedded document
 
@@ -107,7 +107,7 @@ Grades: {
   }
 }
 
-// a collection level document
+// a collection level document that references the above defined embedded document
 Student: {
   class: 'collection',
   fields: {
@@ -132,3 +132,28 @@ Student: {
   }
 }
 ```
+
+All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
+
+```javascript
+
+const documents = {
+  Student: {
+    class: 'collection',
+    fields: {
+      ...
+    }
+  },
+  Grades: {
+    class: 'embedded',
+    fields: {
+      ...
+    }
+  }
+}
+
+```
+
+### Document Field Properties
+
+Each field must have a couple of required properties. The field's type is one of them. A field can have a number of properties, both required and optional depending on its type. Below we will discuss each field type in turn.
