@@ -1,6 +1,6 @@
 # Apify
 
-A tool to bootstrap modern backends using graphql, mongodb, redis and elasticsearch
+A tool to bootstrap modern backends using GraphQL, MongoDB, Redis and Elasticsearch
 
 [![Build Status](https://travis-ci.org/umran/apify.svg?branch=master)](https://travis-ci.org/umran/apify)
 [![Coverage Status](https://img.shields.io/coveralls/github/umran/apify/master.svg)](https://coveralls.io/github/umran/apify?branch=master)
@@ -9,13 +9,13 @@ A tool to bootstrap modern backends using graphql, mongodb, redis and elasticsea
 
 ## Introduction
 
-Apify generates GraphQL CRUD APIs that are tightly coupled with mongodb, via mongoose, as a primary store, optionally redis, among others as a cache store, and elasticsearch as a full-text search engine. Apify exposes a simple configuration interface that is designed to combine configuration options for mongoose, graphql schemas and elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on mongodb, elasticsearch and graphql to a single configuration file under a universal syntax.
+Apify generates GraphQL CRUD APIs that are tightly coupled with MongoDB, via Mongoose, as a primary store, optionally Redis, among others as a cache store, and Elasticsearch as a full-text search engine. Apify exposes a simple configuration interface that is designed to combine configuration options for Mongoose, GraphQL schemas and Elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on MongoDB, Elasticsearch and GraphQL to a single configuration file under a universal syntax.
 
-For each collection level document that is defined, Apify automatically creates the relevant collection in mongodb along with its elasticsearch mappings. It also defines GraphQL endpoints for each collection that allow CRUD operations as well as full-text search to be performed on documents right out of the box.
+For each collection level document that is defined, Apify automatically creates the relevant collection in MongoDB along with its Elasticsearch mappings. It also defines GraphQL endpoints for each collection that allow CRUD operations as well as full-text search to be performed on documents right out of the box.
 
 ## Defining Document Schemas
 
-Defining document schemas is the first major step in setting up the server. Documents are defined as javascript objects that have the properties: `class` and `fields`.
+Defining document schemas is the first and the most crucial step towards setting up the server. Documents are defined as javascript objects that have the properties: `class` and `fields`.
 
 The `fields` property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing.
 
@@ -23,7 +23,7 @@ The `class` property takes a text value indicating the class of document. There 
 
 ### The Collection Class
 
-Collection class documents are documents that will be stored in mongodb under a collection. Documents classified as collection are usually standalone documents that have meaning in and of themselves.
+Collection class documents are documents that will be stored in MongoDB under a collection. Documents classified as collection are usually standalone documents that have meaning in and of themselves.
 
 See below for an example schema of a collection class document.
 
@@ -49,7 +49,7 @@ Student: {
 
 ### The Embedded Class
 
-Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are usually documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
+Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are usually documents that do not make much sense outside the context of a parent document. Because the shape of any individual document schema is flat, Apify requires you to define a separate embedded document for each level of nesting in order to define documents with deeply nested structures.
 
 See below for an example schema of an embedded document
 
@@ -156,7 +156,7 @@ const documents = {
 
 ### Document Field Properties
 
-Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells apify whether to always expect a value for the field. The field's `type` property is another required property and tells apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. See below for details of each field type in turn.
+Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells Apify whether to always expect a value for the field. The field's `type` property is another required property and tells Apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. See below for details of each field type in turn.
 
 #### String Fields
 
@@ -208,7 +208,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 
 #### Date Fields
 
-Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that values passed into it must be valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date"
+Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date"
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
