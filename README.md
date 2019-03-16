@@ -9,7 +9,7 @@ A tool to bootstrap modern backends using graphql, mongodb, redis and elasticsea
 
 ## Introduction
 
-Apify generates GraphQL CRUD APIs that are tightly coupled with mongodb, via mongoose, as a primary store, optionally redis, among others as a cache store, and elasticsearch as full-text search engine, via a simple configuration interface that is designed to combine configuration options from mongoose, graphql schemas and elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on mongodb, elasticsearch and graphql to a single configuration file under a universal syntax.
+Apify generates GraphQL CRUD APIs that are tightly coupled with mongodb, via mongoose, as a primary store, optionally redis, among others as a cache store, and elasticsearch as a full-text search engine. Apify exposes a simple configuration interface that is designed to combine configuration options for mongoose, graphql schemas and elasticsearch mappings. Apify thus effectively reduces the configuration complexity of backends that rely on mongodb, elasticsearch and graphql to a single configuration file under a universal syntax.
 
 For each collection level document that is defined, Apify automatically creates the relevant collection in mongodb along with its elasticsearch mappings. It also defines GraphQL endpoints for each collection that allow CRUD operations as well as full-text search to be performed on documents right out of the box.
 
@@ -49,7 +49,7 @@ Student: {
 
 ### The Embedded Class
 
-Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather as part of an existing collection. Documents classified as embedded are ideally documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
+Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are ideally documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
 
 See below for an example schema of an embedded document
 
@@ -156,7 +156,7 @@ const documents = {
 
 ### Document Field Properties
 
-Each field must have a couple of required properties. The field's type is one of them. A field can have a number of properties, both required and optional depending on its type. Below we will discuss each field type in turn.
+Each field of a document has a couple of required properties. The field's type is one of them. A field can have a number of properties, both required and optional depending on its type. Below we will discuss each field type in turn.
 
 #### String Fields
 
