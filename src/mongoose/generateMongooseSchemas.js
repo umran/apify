@@ -33,8 +33,6 @@ const generateField = (field, schemas, generatedSchemas) => {
       return generateArrayField(field, schemas, generatedSchemas)
     case "reference":
       return generateReferenceField(field, schemas, generatedSchemas)
-    case "association":
-      return generateAssociationField(field)
   }
 }
 
@@ -114,14 +112,6 @@ const generateReferenceField = (field, schemas, generatedSchemas) => {
   return {
     type: generatedSchemas[field.ref](),
     required: field.required
-  }
-}
-
-const generateAssociationField = (field) => {
-  return {
-    type: MongooseSchema.Types.ObjectId,
-    required: false,
-    ref: field.ref
   }
 }
 

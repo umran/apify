@@ -8,9 +8,9 @@ module.exports = (schemaKey, schemas, types, resolver) => {
     name: schemaKey,
     fields: () => Object.keys(fields).reduce((accumulator, fieldKey) => {
       accumulator[fieldKey] = generateField(fieldKey, fields[fieldKey], schemas, types, resolver)
-      
+
       return accumulator
-    
+
     }, { _id: { type: GraphQLID } })
   })
 }
@@ -28,8 +28,6 @@ const generateField = (fieldKey, field, schemas, types, resolver, inArray=false)
     case 'date':
       return generateDateField(field, inArray)
     case 'reference':
-      return generateReferenceField(fieldKey, field, schemas, types, resolver, inArray)
-    case 'association':
       return generateReferenceField(fieldKey, field, schemas, types, resolver, inArray)
     case 'array':
       return generateArrayField(fieldKey, field, schemas, types, resolver)
@@ -111,7 +109,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
     type: new GraphQLList(generateField(fieldKey, field.item, schemas, types, resolver, true))
   }
 
-  if ((field.item.type === 'reference' || field.item.type === 'association') && schemas[field.item.ref].class === 'collection') {
+  if (field.item.type === 'reference' && schemas[field.item.ref].class === 'collection') {
     result.resolve = async (root, args, context) => {
       args = { ...args, _id: { $in: root[fieldKey] }, _options: { pagination: false } }
       let body = await resolver('find', field.ref, root, args, context)

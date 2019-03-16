@@ -8,9 +8,9 @@ module.exports = (schemaKey, schemas, types) => {
     name: `_${schemaKey}StrictInput`,
     fields: () => Object.keys(fields).reduce((accumulator, fieldKey) => {
       accumulator[fieldKey] = generateField(fields[fieldKey], schemas, types)
-      
+
       return accumulator
-    
+
     }, {})
   })
 }
@@ -28,8 +28,6 @@ const generateField = (field, schemas, types, inArray=false) => {
     case 'date':
       return generateDateField(field, inArray)
     case 'reference':
-      return generateReferenceField(field, schemas, types, inArray)
-    case 'association':
       return generateReferenceField(field, schemas, types, inArray)
     case 'array':
       return generateArrayField(field, schemas, types)

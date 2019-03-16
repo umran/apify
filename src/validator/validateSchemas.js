@@ -10,13 +10,12 @@ const floatSchema = require('./schemas/types/float.json')
 const integerSchema = require('./schemas/types/integer.json')
 const stringSchema = require('./schemas/types/string.json')
 const referenceSchema = require('./schemas/types/reference.json')
-const associationSchema = require('./schemas/types/association.json')
 
 // import root schema
 const rootSchema = require('./schemas/root.json')
 
 const ajv = new Ajv({ allErrors: true })
-const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, stringSchema, referenceSchema, associationSchema]).compile(rootSchema)
+const validate = ajv.addSchema([arraySchema, booleanSchema, dateSchema, floatSchema, integerSchema, stringSchema, referenceSchema]).compile(rootSchema)
 
 
 module.exports = schemas => {

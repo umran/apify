@@ -29,15 +29,6 @@ const Dummy = {
 const DummyRequired = {
   class: "embedded",
   fields: {
-    associations: {
-      type: "array",
-      required: true,
-      item: {
-        type: "association",
-        intransitive: true,
-        ref: "Contact"
-      }
-    },
     contact: {
       type: "reference",
       required: true,
@@ -90,7 +81,7 @@ const DummyRequired = {
         type: "float",
         required: false,
         es_indexed: true
-      }  
+      }
     },
     dates: {
       type: "array",
@@ -202,21 +193,6 @@ const Person = {
       required: false,
       ref: "Contact",
       es_indexed: true
-    },
-    parents: {
-      type: "array",
-      required: true,
-      item: {
-        type: "association",
-        intransitive: false,
-        ref: "Parent",
-        from: "Parent",
-        match: {
-          local_field: "id",
-          foreign_field: "spouse"
-        },
-        select: "spouse"
-      }
     },
     alias_of: {
       type: "reference",

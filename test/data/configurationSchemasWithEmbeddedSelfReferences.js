@@ -31,21 +31,6 @@ const Person = {
       ref: "Contact",
       es_indexed: true
     },
-    parents: {
-      type: "array",
-      required: true,
-      item: {
-        type: "association",
-        ref: "Parent",
-        intransitive: false,
-        from: "Parent",
-        match: {
-          local_field: "id",
-          foreign_field: "spouse"
-        },
-        select: "spouse"
-      }
-    },
     alias_of: {
       type: "reference",
       required: false,

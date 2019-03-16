@@ -15,8 +15,6 @@ const generateArg = (field, schemas, types, inArray=false) => {
       return generateDateArg(field, inArray)
     case 'reference':
       return generateReferenceArg(field, schemas, types, inArray)
-    case 'association':
-      return generateReferenceArg(field, schemas, types, inArray)
     case 'array':
       return generateArrayArg(field, schemas, types)
   }

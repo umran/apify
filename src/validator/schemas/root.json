@@ -28,8 +28,7 @@
             { "$ref": "/apify/spec/schemas/types/array.json" },
             { "$ref": "/apify/spec/schemas/types/date.json" },
             { "$ref": "/apify/spec/schemas/types/boolean.json" },
-            { "$ref": "/apify/spec/schemas/types/reference.json" },
-            { "$ref": "/apify/spec/schemas/types/association.json" }
+            { "$ref": "/apify/spec/schemas/types/reference.json" }
           ]
         }
       },
