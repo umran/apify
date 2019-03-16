@@ -160,7 +160,7 @@ Each field of a document has a couple of required properties. The field's `requi
 
 #### String Fields
 
-As with all field types string fields have a required property `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
+String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -175,19 +175,48 @@ As with all field types string fields have a required property `type` whose valu
 
 #### Integer Fields
 
-This section is unfinished at the moment.
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer"
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
 #### Float Fields
 
-This section is unfinished at the moment.
+Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "float"
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
 #### Boolean Fields
 
-This section is unfinished at the moment.
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer"
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
 #### Date Fields
 
-This section is unfinished at the moment.
+Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that values passed into it must be valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date"
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
+| `default` | false | String | Specifies a default date to use during creation of the document. Takes any valid ISO Date string or the value: "current_date" |
 
 #### Reference Fields
 
