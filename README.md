@@ -15,15 +15,15 @@ For each collection level document that is defined, Apify automatically creates 
 
 ## Defining Document Schemas
 
-Defining document schemas is the first major step in setting up the server. Documents are defined as javascript objects that have the properties: 'class' and 'fields'.
+Defining document schemas is the first major step in setting up the server. Documents are defined as javascript objects that have the properties: `class` and `fields`.
 
-The 'fields' property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing.
+The `fields` property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing.
 
-The 'class' property takes a text value indicating the class of document. There are two classes that may be defined: 'collection' and 'embedded'
+The `class` property takes a text value indicating the class of document. There are two classes that may be defined: "collection" and "embedded"
 
 ### The Collection Class
 
-Collection class documents are documents that will be stored in mongodb under a collection. Documents classified as collection are ideally standalone documents that have meaning in and of themselves.
+Collection class documents are documents that will be stored in mongodb under a collection. Documents classified as collection are usually standalone documents that have meaning in and of themselves.
 
 See below for an example schema of a collection class document.
 
@@ -49,7 +49,7 @@ Student: {
 
 ### The Embedded Class
 
-Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are ideally documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
+Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are usually documents that do not make much sense outside the context of a parent document. Apify requires you to define a separate embedded document for each level of nesting within a parent document.
 
 See below for an example schema of an embedded document
 
@@ -156,11 +156,22 @@ const documents = {
 
 ### Document Field Properties
 
-Each field of a document has a couple of required properties. The field's type is one of them. A field can have a number of properties, both required and optional depending on its type. Below we will discuss each field type in turn.
+Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells apify whether to always expect a value for the field. The field's `type` property is another required property and tells apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. Below we will discuss each field type in turn.
 
 #### String Fields
 
-This section is unfinished at the moment.
+As with all field types string field types have a required property `type` which must be set to the string literal "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values associated with the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_keyword` | false | Boolean | Tells Elasticsearch whether to analyze the field as a `keyword` rather than as full-text; defaults to `false` |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
+| `es_analyzer` | false | String | Tells Elasticsearch which analyzer to use during indexing; defaults to the standard analyzer |
+| `es_search_analyzer` | false | String | Tells Elasticsearch which analyzer to use during search; defaults to the analyzer defined at `es_analyzer`|
+| `es_search_quote_analyzer` | false | String | Tells Elasticsearch which analyzer to use for quotes during search; defaults to the analyzer defined at `es_search_analyzer`|
 
 #### Integer Fields
 
