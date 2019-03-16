@@ -17,11 +17,11 @@ For each collection level document that is defined, Apify automatically creates 
 
 Defining document schemas is the first and the most crucial step towards setting up the server. Documents are defined as javascript objects that have the properties: `class` and `fields`.
 
-The `fields` property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing.
+### The `class` Property
 
-The `class` property takes a text value indicating the class of document. There are two classes that may be defined: "collection" and "embedded"
+The `class` property takes a text value indicating the class of document. There are two classes of documents that may be defined: "collection" and "embedded"
 
-### The Collection Class
+#### The Collection Class
 
 Collection class documents are documents that will be stored in MongoDB under a collection. Documents classified as collection are usually standalone documents that have meaning in and of themselves.
 
@@ -47,7 +47,7 @@ const Student = {
 }
 ```
 
-### The Embedded Class
+#### The Embedded Class
 
 Embedded documents are, as the name suggests, documents that will not be stored under its own collection, but rather embedded in an existing collection. Documents classified as embedded are usually documents that do not make much sense outside the context of a parent document. Because the shape of any individual document schema is flat, Apify requires you to define a separate embedded document for each level of nesting in order to define documents with deeply nested structures.
 
@@ -133,34 +133,17 @@ const Student = {
 }
 ```
 
-All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
+### The `fields` Property
 
-```javascript
+The `fields` property is an object that contains all of the fields of the document, which in turn contain information relevant to validation and search indexing of the field. Each key in the `fields` object corresponds to the name of a field, while its value is a `field` object that contains information about the field.
 
-const documents = {
-  Student: {
-    class: 'collection',
-    fields: {
-      ...
-    }
-  },
-  Grades: {
-    class: 'embedded',
-    fields: {
-      ...
-    }
-  }
-}
+####  The `field` Object
 
-```
+Each field of a document has a couple of properties that Apify should know about. These properties are provided in the form of a `field` object, one for each field of the document. A field object can have a number of properties, both required and optional depending on its type. See below for details of each field type in turn.
 
-### Document Field Properties
+##### String Fields
 
-Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells Apify whether to always expect a value for the field. The field's `type` property is another required property and tells Apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. See below for details of each field type in turn.
-
-#### String Fields
-
-String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string".
+String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field object of `type` "string".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -173,20 +156,9 @@ String fields have a required property: `type` whose value must be set to "strin
 | `es_search_analyzer` | false | String | Tells Elasticsearch which analyzer to use during search; defaults to the analyzer defined at `es_analyzer`|
 | `es_search_quote_analyzer` | false | String | Tells Elasticsearch which analyzer to use for quotes during search; defaults to the analyzer defined at `es_search_analyzer`|
 
-#### Integer Fields
+##### Integer Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer".
-
-| Property | Required | Type | Description |
-| --- | --- | --- | --- |
-| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
-| `type` | true | String | Tells Apify how to parse values of the field |
-| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
-| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
-
-#### Float Fields
-
-Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "float".
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -195,9 +167,9 @@ Float fields have a required property: `type` whose value must be set to "intege
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
-#### Boolean Fields
+##### Float Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field of `type` "integer".
+Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "float".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -206,9 +178,20 @@ Integer fields have a required property: `type` whose value must be set to "inte
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 
-#### Date Fields
+##### Boolean Fields
 
-Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field of `type` "date".
+Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
+
+| Property | Required | Type | Description |
+| --- | --- | --- | --- |
+| `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
+| `type` | true | String | Tells Apify how to parse values of the field |
+| `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
+| `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
+
+##### Date Fields
+
+Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field object of `type` "date".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -218,9 +201,9 @@ Date fields have a required property: `type` whose value must be set to "date". 
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 | `default` | false | String | Specifies a default date to use during creation of the document. Takes any valid ISO Date string or the value: "current_date", which generates a timestamp during query time (on create or update) |
 
-#### Reference Fields
+##### Reference Fields
 
-Reference fields have a required property: `type` whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field of `type` "reference".
+Reference fields have a required property: `type` whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field object of `type` "reference".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -229,15 +212,79 @@ Reference fields have a required property: `type` whose value must be set to "re
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field containing the nested document during indexing |
 | `ref` | true | String | Tells Apify which document this field is a reference to. The value should be the document name as defined in the document schema definition and is case sensitive  |
 
-#### Array Fields
+##### Array Fields
 
-Array fields have a required property: `type` whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field of `type` "array".
+Array fields have a required property: `type` whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field object of `type` "array".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
 | `type` | true | String | Tells Apify how to parse values of the field |
 | `item` | true | Object <Field> | Tells Apify the field type of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array type because nesting arrays within arrays is not allowed |
+
+## Composing the Document Schemas Together
+
+All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
+
+```javascript
+
+// an embedded document
+const Grades = {
+  class: 'embedded',
+  fields: {
+    mathematics: {
+      type: 'float',
+      required: true,
+      es_indexed: true,
+      es_boost: 2.0
+    },
+    english: {
+      type: 'float',
+      required: true,
+      es_indexed: true,
+      es_boost: 1.5
+    },
+    physics: {
+      type: 'float',
+      required: false,
+      es_indexed: true,
+      es_boost: 1.0
+    }
+  }
+}
+
+// a collection level document that references the above defined embedded document
+const Student = {
+  class: 'collection',
+  fields: {
+    firstName: {
+      type: 'string',
+      required: true,
+      es_indexed: true,
+      es_keyword: true
+    },
+    lastName: {
+      type: 'string',
+      required: true,
+      es_indexed: true,
+      es_keyword: true
+    },
+    grades: {
+      type: 'reference',
+      ref: 'Grades',
+      required: false,
+      es_indexed: true
+    }
+  }
+}
+
+// a schemas object that collects the above documents together
+const schemas = {
+  Grades,
+  Student
+}
+
+```
 
 ## Defining the Root Resolver
 
