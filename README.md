@@ -156,11 +156,11 @@ const documents = {
 
 ### Document Field Properties
 
-Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells apify whether to always expect a value for the field. The field's `type` property is another required property and tells apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. Below we will discuss each field type in turn.
+Each field of a document has a couple of required properties. The field's `required` property is one of them, which explicitly tells apify whether to always expect a value for the field. The field's `type` property is another required property and tells apify how to properly parse and deal with the value associated with the field. A field can have a number of other properties, both required and optional depending on its type. See below for details of each field type in turn.
 
 #### String Fields
 
-As with all field types string field types have a required property `type` which must be set to the string literal "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
+As with all field types string fields have a required property `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field of `type` "string"
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
