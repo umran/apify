@@ -157,3 +157,47 @@ const documents = {
 ### Document Field Properties
 
 Each field must have a couple of required properties. The field's type is one of them. A field can have a number of properties, both required and optional depending on its type. Below we will discuss each field type in turn.
+
+#### String Fields
+
+This section is unfinished at the moment.
+
+#### Integer Fields
+
+This section is unfinished at the moment.
+
+#### Float Fields
+
+This section is unfinished at the moment.
+
+#### Boolean Fields
+
+This section is unfinished at the moment.
+
+#### Date Fields
+
+This section is unfinished at the moment.
+
+#### Reference Fields
+
+This section is unfinished at the moment.
+
+#### Array Fields
+
+This section is unfinished at the moment.
+
+## Defining Resolvers
+
+This section is unfinished at the moment.
+
+## Building the Backend Configuration
+
+This section is unfinished at the moment.
+
+## Building the GraphQL Schema
+
+This section is unfinished at the moment.
+
+## Setting Up and Running the GraphQL Server
+
+This section is unfinished at the moment.
