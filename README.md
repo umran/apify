@@ -13,6 +13,19 @@ Apify generates GraphQL CRUD APIs that are tightly coupled with MongoDB, via Mon
 
 For each collection level document that is defined, Apify automatically creates the relevant collection in MongoDB along with its Elasticsearch mappings. It also defines GraphQL endpoints for each collection that allow CRUD operations as well as full-text search to be performed on documents right out of the box.
 
+## Installation
+
+```
+npm install --save @umran/apify
+
+```
+
+To actually run the GraphQL server you will also need the `express` and `express-graphql` packages
+
+```
+npm install --save express express-graphql
+```
+
 ## Defining Document Schemas
 
 Defining document schemas is the first and the most crucial step towards setting up the server. Documents are defined as javascript objects that have the properties: `class` and `fields`.
@@ -334,14 +347,41 @@ const createResolver = ({ mongoose_models, elastic_mappings }) =>
 
 ```
 
-## Building the Backend Configuration
-
-This section is unfinished at the moment.
-
 ## Building the GraphQL Schema
 
-This section is unfinished at the moment.
+Once the `createResolver` function and document definitions are set up, the GraphQL schema can be built by calling the `buildGraphql` function with the document definitions and `createResolver` function as arguments.
+
+```javascript
+
+const { buildGraphql } = require('@umran/apify')
+
+// for brevity assume these are already defined elsewhere
+const documentDefinitions = require('./documentDefinitions')
+const createResolver = require('./createResolver')
+
+const graphqlSchema = buildGraphql(documentDefinitions, createResolver)
+
+```
 
 ## Setting Up and Running the GraphQL Server
 
-This section is unfinished at the moment.
+Setting up and running the server is pretty straightforward. You will need to either create a new express app or use an existing one. The GraphQL server can be attached to the express instance as a middleware at a path of your choice.
+
+```javascript
+
+const express = require('express')
+
+// for brevity assume the graphqlSchema is already built and available elsewhere
+const graphqlSchema = require('./graphqlSchema')
+
+// create a new express app
+const app = express()
+
+app.use('/api', graphqlHTTP({
+  schema: graphqlSchema,
+  graphiql: true
+}))
+
+app.listen(3000)
+
+```
