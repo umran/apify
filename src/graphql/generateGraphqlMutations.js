@@ -20,7 +20,7 @@ module.exports = (schemas, types, resolver) => {
 
 const createCreateField = (schemaKey, schemas, types, resolver) => {
   return {
-    type: new GraphQLNonNull(GraphQLID),
+    type: GraphQLID,
     args: Object.keys(schemas[schemaKey].fields).reduce((accumulator, fieldKey) => {
       accumulator[fieldKey] = generateStrictArg(schemas[schemaKey].fields[fieldKey], schemas, types)
       return accumulator
@@ -39,7 +39,7 @@ const createCreateField = (schemaKey, schemas, types, resolver) => {
 
 const createUpdateField = (schemaKey, schemas, types, resolver) => {
   return {
-    type: new GraphQLNonNull(GraphQLID),
+    type: GraphQLID,
     args: Object.keys(schemas[schemaKey].fields).reduce((accumulator, fieldKey) => {
       accumulator[fieldKey] = generateArg(schemas[schemaKey].fields[fieldKey], schemas, types)
       return accumulator
@@ -58,7 +58,7 @@ const createUpdateField = (schemaKey, schemas, types, resolver) => {
 
 const createDeleteField = (schemaKey, resolver) => {
   return {
-    type: new GraphQLNonNull(GraphQLID),
+    type: GraphQLID,
     args: {
       _id: {
         type: new GraphQLNonNull(GraphQLID)
