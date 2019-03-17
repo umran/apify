@@ -162,7 +162,7 @@ String fields have a required property: `type`, whose value must be set to "stri
 | `required` | true | Boolean | Tells Apify whether to always expect a value for the field |
 | `type` | true | String | Tells Apify how to parse values of the field |
 | `es_indexed` | true | Boolean | Tells Elasticsearch whether to analyze the field during indexing |
-| `es_keyword` | false | Boolean | Tells Elasticsearch whether to analyze the field as a `keyword` rather than as full-text; defaults to `false` |
+| `es_keyword` | true | Boolean | Tells Elasticsearch whether to analyze the field as a `keyword` rather than as full-text |
 | `es_boost` | false | Number | Tells Elasticsearch how to weight the field when calculating the document's relevance score; defaults to 1.0 |
 | `es_analyzer` | false | String | Tells Elasticsearch which analyzer to use during indexing; defaults to the standard analyzer |
 | `es_search_analyzer` | false | String | Tells Elasticsearch which analyzer to use during search; defaults to the analyzer defined at `es_analyzer`|
@@ -259,37 +259,25 @@ const { find, findOne, search, create, update, _delete } = require('./predefined
 const createResolver = ({ mongoose_models, elastic_mappings }) =>
   async ({ method, collection, root, args, context }) => {
 
-  // example resolver logic
-  const model = mongoose_models[collection]
-  const mapping = elastic_mappings[collection]
+    // example resolver logic
+    const model = mongoose_models[collection]
+    const mapping = elastic_mappings[collection]
 
-  switch(method) {
-    case 'find':
-      return {
-        await find(model, args)
-      }
-    case 'findOne':
-      return {
-        await findOne(model, args)
-      }
-    case 'search':
-      return {
-        await search(mapping, args)
-      }
-    case 'create':
-      return {
-        await create(model, args)
-      }
-    case 'update':
-      return {
-        await update(model, args)
-      }
-    case 'delete':
-      return {
-        await _delete(model, args)
-      }
+    switch(method) {
+      case 'find':
+        return await find(model, args)
+      case 'findOne':
+        return await findOne(model, args)
+      case 'search':
+        return await search(mapping, args)
+      case 'create':
+        return await create(model, args)
+      case 'update':
+        return await update(model, args)
+      case 'delete':
+        return await _delete(model, args)
+    }
   }
-}
 ```
 
 ## Building the GraphQL Schema
