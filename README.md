@@ -32,7 +32,7 @@ Defining document schemas is the first and the most crucial step towards setting
 
 ### The `class` Property
 
-The `class` property takes a text value indicating the class of document. There are two classes of documents that may be defined: "collection" and "embedded"
+The `class` property takes a string value indicating the class of document. There are two classes of documents that may be defined: "collection" and "embedded"
 
 #### The Collection Class
 
