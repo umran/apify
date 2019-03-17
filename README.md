@@ -365,7 +365,7 @@ const graphqlSchema = buildGraphql(documentDefinitions, createResolver)
 
 ## Setting Up and Running the GraphQL Server
 
-Setting up and running the server is pretty straightforward. You will need to either create a new express app or use an existing one. The GraphQL server can be attached to the express instance as a middleware at a path of your choice.
+Setting up and running the server is pretty straightforward. You will need to either create a new express app or use an existing one. The GraphQL server can be attached to the express instance as middleware at a path of your choice.
 
 ```javascript
 
