@@ -294,7 +294,8 @@ The resolver is a single function that defines how GraphQL API calls to the `cre
 
 ```javascript
 
-const createResolver = ({ mongoose_models, elastic_mappings }) = async ({ method, collection, root, args, context }) => {
+const createResolver = ({ mongoose_models, elastic_mappings }) =>
+  async ({ method, collection, root, args, context }) => {
 
   // example resolver logic
   const model = mongoose_models[collection]
