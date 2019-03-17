@@ -215,7 +215,7 @@ Date fields have a required property: `type`, whose value must be set to "date".
 
 ##### Reference Fields
 
-Reference fields have a required property: `type`, whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field object of `type` "reference".
+Reference fields have a required property: `type`, whose value must be set to "reference". Reference fields are a pointers to other collection class or embedded documents and are useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field object of `type` "reference".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -226,7 +226,7 @@ Reference fields have a required property: `type`, whose value must be set to "r
 
 ##### Array Fields
 
-Array fields have a required property: `type`, whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field object of `type` "array".
+Array fields have a required property: `type`, whose value must be set to "array". Array fields specify a list of values of some type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field object of `type` "array".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
