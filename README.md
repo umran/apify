@@ -380,7 +380,7 @@ app.listen(3000)
 
 ## Building the Mongoose Models and Elasticsearch Mappings Elsewhere in Your Code (Optional)
 
-Sometimes it is not convenient to have code that calls the database directly live inside the GraphQL API server, for example when running a microservices architecture that decouples database operations from consumer facing services. For this reason a convenience function called `buildBackend` is available. This function can be imported and called by a different process to generate the Mongoose models and Elasticsearch mappings needed to read and write from the databases.
+Sometimes it is not convenient to have code that calls the database directly live inside the GraphQL API server, for example when running a microservices architecture that decouples database operations from consumer facing services. For this reason a convenience function called `buildBackend` is available. This function can be imported and called by a different process to generate the Mongoose models and Elasticsearch mappings needed to read and write to/from the databases.
 
 With this capability the main resolver function which runs on the GraphQL API server can push queries to a message queue like RabbitMQ while a different process consumes the queries and actually executes the database calls.
 
