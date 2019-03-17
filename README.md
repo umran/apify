@@ -370,6 +370,7 @@ Setting up and running the server is pretty straightforward. You will need to ei
 ```javascript
 
 const express = require('express')
+const graphqlHTTP = require('express-graphql')
 
 // for brevity assume the graphqlSchema is already built and available elsewhere
 const graphqlSchema = require('./graphqlSchema')
