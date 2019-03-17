@@ -155,7 +155,7 @@ Each field of a document has a couple of properties that Apify should know about
 
 ##### String Fields
 
-String fields have a required property: `type` whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field object of `type` "string".
+String fields have a required property: `type`, whose value must be set to "string". Refer to the table below for all the properties that may be defined on a field object of `type` "string".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -170,7 +170,7 @@ String fields have a required property: `type` whose value must be set to "strin
 
 ##### Integer Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
+Integer fields have a required property: `type`, whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -181,7 +181,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 
 ##### Float Fields
 
-Float fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "float".
+Float fields have a required property: `type`, whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "float".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -192,7 +192,7 @@ Float fields have a required property: `type` whose value must be set to "intege
 
 ##### Boolean Fields
 
-Integer fields have a required property: `type` whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
+Integer fields have a required property: `type`, whose value must be set to "integer". Refer to the table below for all the properties that may be defined on a field object of `type` "integer".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -203,7 +203,7 @@ Integer fields have a required property: `type` whose value must be set to "inte
 
 ##### Date Fields
 
-Date fields have a required property: `type` whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field object of `type` "date".
+Date fields have a required property: `type`, whose value must be set to "date". Date fields are a special kind of field in that it takes valid ISO `Date` objects. Refer to the table below for all the properties that may be defined on a field object of `type` "date".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -215,7 +215,7 @@ Date fields have a required property: `type` whose value must be set to "date". 
 
 ##### Reference Fields
 
-Reference fields have a required property: `type` whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field object of `type` "reference".
+Reference fields have a required property: `type`, whose value must be set to "reference". Reference fields are a pointer to another collection or embedded document and is useful for nesting documents together. Refer to the table below for all the properties that may be defined on a field object of `type` "reference".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -226,7 +226,7 @@ Reference fields have a required property: `type` whose value must be set to "re
 
 ##### Array Fields
 
-Array fields have a required property: `type` whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field object of `type` "array".
+Array fields have a required property: `type`, whose value must be set to "array". Array fields specify a list of any other type of field. Array fields are useful for storing lists of values of the same type in a collection. Refer to the table below for all the properties that may be defined on a field object of `type` "array".
 
 | Property | Required | Type | Description |
 | --- | --- | --- | --- |
@@ -239,7 +239,7 @@ Array fields have a required property: `type` whose value must be set to "array"
 All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
 
 ```javascript
-// for the brevity we're using the previously defined sample documents
+// for brevity we're using the previously defined sample documents
 const documentDefinitions = {
   Grades,
   Student
