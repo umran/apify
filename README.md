@@ -1,6 +1,6 @@
 # Apify
 
-A tool to bootstrap modern backends using GraphQL, MongoDB, Redis and Elasticsearch.
+A tool to bootstrap modern content management systems using GraphQL, MongoDB, Redis and Elasticsearch.
 
 [![Build Status](https://travis-ci.org/umran/apify.svg?branch=master)](https://travis-ci.org/umran/apify)
 [![Coverage Status](https://img.shields.io/coveralls/github/umran/apify/master.svg)](https://coveralls.io/github/umran/apify?branch=master)
