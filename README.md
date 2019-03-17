@@ -17,7 +17,6 @@ For each collection level document that is defined, Apify automatically creates 
 
 ```
 npm install --save @umran/apify
-
 ```
 
 To actually run the GraphQL server you will also need the `express` and `express-graphql` packages
@@ -240,7 +239,6 @@ Array fields have a required property: `type` whose value must be set to "array"
 All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
 
 ```javascript
-
 // an embedded document
 const Grades = {
   class: 'embedded',
@@ -296,7 +294,6 @@ const documentDefinitions = {
   Grades,
   Student
 }
-
 ```
 
 ## Defining the Resolver
@@ -306,7 +303,6 @@ The resolver is a single function that defines how GraphQL API calls to the `cre
 ### The `createResolver` function
 
 ```javascript
-
 // for the sake of brevity, assume these methods are already defined in another place
 const { find, findOne, search, create, update, _delete } = require('./predefinedMethods')
 
@@ -344,7 +340,6 @@ const createResolver = ({ mongoose_models, elastic_mappings }) =>
       }
   }
 }
-
 ```
 
 ## Building the GraphQL Schema
@@ -352,15 +347,13 @@ const createResolver = ({ mongoose_models, elastic_mappings }) =>
 Once the `createResolver` function and document definitions are set up, the GraphQL schema can be built by calling the `buildGraphql` function with the document definitions and `createResolver` function as arguments.
 
 ```javascript
-
 const { buildGraphql } = require('@umran/apify')
 
 // for brevity assume these are already defined elsewhere
 const documentDefinitions = require('./documentDefinitions')
 const createResolver = require('./createResolver')
 
-const graphqlSchema = buildGraphql(documentDefinitions, createResolver)
-
+const { graphqlSchema } = buildGraphql(documentDefinitions, createResolver)
 ```
 
 ## Setting Up and Running the GraphQL Server
@@ -368,7 +361,6 @@ const graphqlSchema = buildGraphql(documentDefinitions, createResolver)
 Setting up and running the server is pretty straightforward. You will need to either create a new express app or use an existing one. The GraphQL server can be attached to the express instance as middleware at a path of your choice.
 
 ```javascript
-
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 
@@ -384,5 +376,21 @@ app.use('/api', graphqlHTTP({
 }))
 
 app.listen(3000)
+```
 
+## Building the Mongoose Models and Elasticsearch Mappings Elsewhere in Your Code (Optional)
+
+Sometimes it is not convenient to have code that calls the database directly live inside the GraphQL API server, for example when running a microservices architecture that decouples database operations from consumer facing services. For this reason a convenience function called `buildBackend` is available. This function can be imported and called by a different process to generate the Mongoose models and Elasticsearch mappings needed to read and write from the databases.
+
+With this capability the main resolver function which runs on the GraphQL API server can push queries to a message queue like RabbitMQ while a different process consumes the queries and actually executes the database calls.
+
+See below for sample code implemented in a separate NodeJS process:
+
+```javascript
+const { buildBackend } = require('@umran/apify')
+
+// the document definitions must be available to this process
+const documentDefinitions = require('./documentDefinitions')
+
+const { mongoose_models, elastic_mappings } = buildBackend(documentDefinitions)
 ```
