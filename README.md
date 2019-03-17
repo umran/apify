@@ -294,6 +294,9 @@ The resolver is a single function that defines how GraphQL API calls to the `cre
 
 ```javascript
 
+// for the sake of brevity, assume these methods are already defined in another place
+const { find, findOne, search, create, update, _delete } = require('./predefinedMethods')
+
 const createResolver = ({ mongoose_models, elastic_mappings }) =>
   async ({ method, collection, root, args, context }) => {
 
@@ -324,7 +327,7 @@ const createResolver = ({ mongoose_models, elastic_mappings }) =>
       }
     case 'delete':
       return {
-        await delete(collection, args)
+        await _delete(model, args)
       }
   }
 }
