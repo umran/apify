@@ -234,62 +234,12 @@ Array fields have a required property: `type` whose value must be set to "array"
 | `type` | true | String | Tells Apify how to parse values of the field |
 | `item` | true | Object <Field> | Tells Apify the field type of the values that are contained in the array. The value must be an object that represents one of the field types described above; cannot be an array type because nesting arrays within arrays is not allowed |
 
-## Composing the Document Schemas Together
+## Composing the Document Definitions
 
 All documents, of both the embedded and collection classes should be compiled into a single javascript object whose keys are the document names:
 
 ```javascript
-// an embedded document
-const Grades = {
-  class: 'embedded',
-  fields: {
-    mathematics: {
-      type: 'float',
-      required: true,
-      es_indexed: true,
-      es_boost: 2.0
-    },
-    english: {
-      type: 'float',
-      required: true,
-      es_indexed: true,
-      es_boost: 1.5
-    },
-    physics: {
-      type: 'float',
-      required: false,
-      es_indexed: true,
-      es_boost: 1.0
-    }
-  }
-}
-
-// a collection level document that references the above defined embedded document
-const Student = {
-  class: 'collection',
-  fields: {
-    firstName: {
-      type: 'string',
-      required: true,
-      es_indexed: true,
-      es_keyword: true
-    },
-    lastName: {
-      type: 'string',
-      required: true,
-      es_indexed: true,
-      es_keyword: true
-    },
-    grades: {
-      type: 'reference',
-      ref: 'Grades',
-      required: false,
-      es_indexed: true
-    }
-  }
-}
-
-// an object that compiles the above documents together
+// for the brevity we're using the previously defined sample documents
 const documentDefinitions = {
   Grades,
   Student
