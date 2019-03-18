@@ -85,7 +85,7 @@ const generateReferenceArg = (field, schemas, types, inArray) => {
   if (schemas[field.ref].class === 'collection') {
     type = GraphQLID
   } else {
-    type = types[field.ref].inputType
+    type = types[field.ref].strictInputType
   }
 
   if (inArray) {
