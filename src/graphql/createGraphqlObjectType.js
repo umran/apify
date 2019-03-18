@@ -122,7 +122,7 @@ const generateArrayField = (fieldKey, field, schemas, types, resolver) => {
 
       let body = await resolver({
         method: 'find',
-        collection: field.ref,
+        collection: field.item.ref,
         root,
         args,
         context
