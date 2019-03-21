@@ -49,7 +49,7 @@ describe('validateSchemas()', () => {
     expect(test).to.throw(errors.SchemaError, /^circularReference/)
   })
 
-  it('should take configuration schemas with required self references and throw a SchemaError with code requiredSelfReference', () => {
+  it('should take collection level configuration schemas with required self references and throw a SchemaError with code requiredSelfReference', () => {
 
     const configurationSchemas = data.configurationSchemasWithRequiredSelfReferences
     const test = () => {
@@ -59,13 +59,13 @@ describe('validateSchemas()', () => {
     expect(test).to.throw(errors.SchemaError, /^requiredSelfReference/)
   })
 
-  it('should take configuration schemas with embedded self references and throw a SchemaError with code embeddedSelfReference', () => {
-
-    const configurationSchemas = data.configurationSchemasWithEmbeddedSelfReferences
-    const test = () => {
-      validateSchemas(configurationSchemas)
-    }
-
-    expect(test).to.throw(errors.SchemaError, /^embeddedSelfReference/)
-  })
+  // it('should take configuration schemas with embedded self references and throw a SchemaError with code embeddedSelfReference', () => {
+  //
+  //   const configurationSchemas = data.configurationSchemasWithEmbeddedSelfReferences
+  //   const test = () => {
+  //     validateSchemas(configurationSchemas)
+  //   }
+  //
+  //   expect(test).to.throw(errors.SchemaError, /^embeddedSelfReference/)
+  // })
 })
