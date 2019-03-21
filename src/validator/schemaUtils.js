@@ -6,15 +6,11 @@ const validateReferenceField = (schemaKey, schema, field) => {
     return
   }
 
-  // if (schema.class === 'embedded') {
-  //   throw new SchemaError('embeddedSelfReference', `Please ensure that embedded schema types do not reference themselves`)
-  // }
-  //
-  // if (field.required === true) {
-  //   throw new SchemaError('requiredSelfReference', `Please ensure that references to ${field.ref} from ${schemaKey} are not required`)
-  // }
+  if (schema.class === 'embedded') {
+    throw new SchemaError('embeddedSelfReference', `Please ensure that embedded schema types do not reference themselves`)
+  }
 
-  if (schema.class === 'collection' && field.required === true) {
+  if (field.required === true) {
     throw new SchemaError('requiredSelfReference', `Please ensure that references to ${field.ref} from ${schemaKey} are not required`)
   }
 }

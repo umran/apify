@@ -1,7 +1,7 @@
 const processReference = (ref, path, schemas, generatedPopulations, pendingPopulations) => {
   if (schemas[ref].class === 'embedded') {
     Object.keys(schemas[ref].fields).forEach(fieldKey => {
-      if (schemas[ref].fields[fieldKey].type === 'reference') {
+      if (schemas[ref].fields[fieldKey].type === 'reference' && ref !== schemas[ref].fields[fieldKey].ref) {
         processReference(schemas[ref].fields[fieldKey].ref, `${path}.${fieldKey}`, schemas, generatedPopulations, pendingPopulations)
       }
     })
