@@ -18,7 +18,7 @@ const processReference = (ref, path, schemas, generatedPopulations, pendingPopul
       }, {})
     }
 
-    if (generatedPopulations[ref]) {
+    if (generatedPopulations[ref]().length > 0) {
       population.populate = generatedPopulations[ref]()
     }
 
