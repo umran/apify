@@ -49,6 +49,11 @@ const schemas = {
   pokedex: {
     class: 'embedded',
     fields: {
+      serial: {
+        type: 'integer',
+        required: false,
+        es_indexed: true
+      },
       pokemon: {
         type: 'array',
         required: true,
