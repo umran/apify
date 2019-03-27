@@ -13,8 +13,14 @@ module.exports = schemas => {
   // generate elasticsearch mappings
   const elastic_mappings = elasticsearch.generateElasticMappings(schemas)
 
+  // generate projections and populations necessary for search indexing
+  const elastic_projections = elasticsearch.generateElasticProjections(schemas)
+  const elastic_populations = elasticsearch.generateElasticPopulations(schemas)
+
   return {
     mongoose_models,
-    elastic_mappings
+    elastic_mappings,
+    elastic_projections,
+    elastic_populations
   }
 }
