@@ -117,6 +117,16 @@ const schemas = {
         required: true,
         es_indexed: true,
         es_keyword: true
+      },
+      regions: {
+        type: 'array',
+        required: true,
+        item: {
+          type: 'reference',
+          required: true,
+          ref: 'region',
+          es_indexed: true
+        }
       }
     }
   }
@@ -154,7 +164,13 @@ describe('generateElasticPopulations', () => {
     expect(populations.region()).to.be.empty
 
     // model
-    expect(populations.model()).to.be.empty
+    expect(populations.model()).to.be.an('array').that.deep.includes({
+      path: 'regions',
+      model: 'region',
+      select: {
+        name: 1
+      }
+    })
   })
 
   it('should generate populations for all array fields whose items are collection level fields', () => {
@@ -178,8 +194,16 @@ describe('generateElasticPopulations', () => {
       path: 'pokedex.model',
       model: 'model',
       select: {
-        name: 1
-      }
+        name: 1,
+        regions: 1
+      },
+      populate: [{
+        path: 'regions',
+        model: 'region',
+        select: {
+          name: 1
+        }
+      }]
     })
   })
 
