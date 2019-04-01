@@ -65,7 +65,7 @@ const hydrateResults = async (model, results, options={}) => {
   const { paginate, paginatedField, limit } = options
   let _limit = limit || DEFAULT_LIMIT
 
-  if (!results.hits || !results.hits.hits) {
+  if (!results.hits || !results.hits.hits || results.hits.hits.length === 0) {
     return {
       results: [],
       cursor: null
@@ -96,7 +96,14 @@ const hydrateResults = async (model, results, options={}) => {
 }
 
 const lookupIds = async (_ids, model) => {
+
+  // debugging
+  console.log(_ids)
+
   let docs = await find(model, { _id: { $in: _ids }, options_: { paginate: false } })
+
+  // debugging
+  console.log(docs)
 
   let sorted = []
   for (var i = 0; i < _ids.length; i++) {
