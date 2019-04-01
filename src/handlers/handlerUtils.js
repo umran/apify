@@ -12,7 +12,7 @@ exports.formatResult = (result) => {
 }
 
 exports.deriveArgs = args => {
-  return Object.keys(args).filter(argKey => argKey !== '_options').reduce((accumulator, argKey) => {
+  return Object.keys(args).filter(argKey => argKey !== 'options_').reduce((accumulator, argKey) => {
     accumulator[argKey] = args[argKey]
 
     return accumulator

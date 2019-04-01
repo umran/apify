@@ -97,13 +97,7 @@ const hydrateResults = async (model, results, options={}) => {
 
 const lookupIds = async (_ids, model) => {
 
-  // debugging
-  console.log(_ids)
-
   let docs = await find(model, { _id: { $in: _ids }, options_: { paginate: false } })
-
-  // debugging
-  console.log(docs)
 
   let sorted = []
   for (var i = 0; i < _ids.length; i++) {
@@ -137,9 +131,6 @@ module.exports = async (modelKey, model, args, client) => {
     type: modelKey,
     body: createBody(query, options)
   })
-
-  // debugging
-  console.log(results)
 
   return await hydrateResults(model, results, options)
 }
