@@ -1,7 +1,9 @@
 const find = require('./find')
 
+const DEFAULT_LIMIT = 20
+
 const createBody = (query, options={}) => {
-  let _limit = 20
+  let _limit = DEFAULT_LIMIT
   let _sortDirection = 'desc'
   let _paginatedField = '_score'
   let _matchFields = []
@@ -61,7 +63,7 @@ const createBody = (query, options={}) => {
 
 const hydrateResults = async (model, results, options={}) => {
   const { paginate, paginatedField, limit } = options
-  let _limit = limit || 20
+  let _limit = limit || DEFAULT_LIMIT
 
   if (!results.hits || !results.hits.hits) {
     return {
@@ -99,7 +101,7 @@ const lookupIds = async (_ids, model) => {
   let sorted = []
   for (var i = 0; i < _ids.length; i++) {
     let index = findIndex(docs.results, doc => {
-      return (doc._id.toString() === _ids[i])
+      return (doc._id === _ids[i])
     })
 
     if (index !== null) {
@@ -128,6 +130,9 @@ module.exports = async (modelKey, model, args, client) => {
     type: modelKey,
     body: createBody(query, options)
   })
+
+  // debugging
+  console.log(results)
 
   return await hydrateResults(model, results, options)
 }

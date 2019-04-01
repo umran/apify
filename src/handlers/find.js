@@ -1,14 +1,14 @@
 const { formatResult, deriveArgs } = require('./handlerUtils')
 
+const DEFAULT_LIMIT = 20
+
 module.exports = async (model, argsOptions) => {
 
   const { options_: options } = argsOptions
   const args = deriveArgs(argsOptions)
 
-
-
   let _query = args
-  let _limit = 20
+  let _limit = DEFAULT_LIMIT
   let _sortDirection = -1
   let _sortOperator = '$lt'
 
