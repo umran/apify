@@ -15,11 +15,11 @@ const processReference = (ref, path, schemas, generatedPopulations, pendingPopul
         if (!(schemas[ref].fields[fKey].type === 'reference' && schemas[ref].fields[fKey].ref === ref)
           && !(schemas[ref].fields[fKey].type === 'array' && schemas[ref].fields[fKey].item.type === 'reference' && schemas[ref].fields[fKey].item.ref === ref)
         ) {
-          accumulator[fKey] = 1
+          accumulator = accumulator.concat(` ${fKey}`)
         }
 
         return accumulator
-      }, {})
+      }, '-_id')
     }
 
     if (generatedPopulations[ref]().length > 0) {

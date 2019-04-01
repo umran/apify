@@ -146,18 +146,14 @@ describe('generateElasticPopulations', () => {
     expect(populations.person()).to.be.an('array').that.deep.includes({
       path: 'region',
       model: 'region',
-      select: {
-        name: 1
-      }
+      select: '-_id name'
     })
 
     // pokemon
     expect(populations.pokemon()).to.be.an('array').that.deep.includes({
       path: 'region',
       model: 'region',
-      select: {
-        name: 1
-      }
+      select: '-_id name'
     })
 
     // region
@@ -167,9 +163,7 @@ describe('generateElasticPopulations', () => {
     expect(populations.model()).to.be.an('array').that.deep.includes({
       path: 'regions',
       model: 'region',
-      select: {
-        name: 1
-      }
+      select: '-_id name'
     })
   })
 
@@ -180,9 +174,7 @@ describe('generateElasticPopulations', () => {
     expect(populations.person()).to.be.an('array').that.deep.includes({
       path: 'visited_regions',
       model: 'region',
-      select: {
-        name: 1
-      }
+      select: '-_id name'
     })
   })
 
@@ -193,16 +185,11 @@ describe('generateElasticPopulations', () => {
     expect(populations.person()).to.be.an('array').that.deep.includes({
       path: 'pokedex.model',
       model: 'model',
-      select: {
-        name: 1,
-        regions: 1
-      },
+      select: '-_id name regions',
       populate: [{
         path: 'regions',
         model: 'region',
-        select: {
-          name: 1
-        }
+        select: '-_id name'
       }]
     })
   })
@@ -214,16 +201,11 @@ describe('generateElasticPopulations', () => {
     expect(populations.person()).to.be.an('array').that.deep.includes({
       path: 'pokedex.pokemon',
       model: 'pokemon',
-      select: {
-        name: 1,
-        region: 1
-      },
+      select: '-_id name region',
       populate: [{
         path: 'region',
         model: 'region',
-        select: {
-          name: 1
-        }
+        select: '-_id name'
       }]
     })
   })
