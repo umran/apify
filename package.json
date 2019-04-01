@@ -1,6 +1,6 @@
 {
   "name": "@umran/apify",
-  "version": "4.0.1",
+  "version": "2.1.0-alpha.0",
   "description": "A tool to bootstrap modern content management and delivery systems using GraphQL, MongoDB, Redis and Elasticsearch.",
   "main": "index.js",
   "directories": {
