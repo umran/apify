@@ -7,6 +7,14 @@ module.exports = async (model, argsOptions) => {
   const { options_: options } = argsOptions
   const args = deriveArgs(argsOptions)
 
+  // debugging
+  console.log('find args are:')
+  console.log(args)
+
+  // debugging
+  console.log('find options are:')
+  console.log(options)
+
   let _query = args
   let _limit = DEFAULT_LIMIT
   let _sortDirection = -1
@@ -72,6 +80,10 @@ const getResults = async (model, _query, _sort, _limit, paginatedField, paginate
   if (paginate === true) {
     results = formatResult(await model.find(_query).sort(_sort).limit(_limit + 1).lean())
   } else {
+    // debugging
+    console.log('query is:')
+    console.log(_query)
+
     results = formatResult(await model.find(_query).sort(_sort).lean())
   }
 
