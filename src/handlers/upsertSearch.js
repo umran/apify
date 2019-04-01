@@ -1,10 +1,10 @@
-module.exports = async (modelKey, model, populations, projections, _id) => {
+module.exports = async (modelKey, model, projection, population, _id, client) => {
   let doc
 
-  if (populations[modelKey]) {
-    doc = await model.findOne({ _id }, { ...projections[modelKey], _id: 0 }).populate(populations[modelKey]).lean()
+  if (population.length > 0) {
+    doc = await model.findOne({ _id }, { ...projection, _id: 0 }).populate(population).lean()
   } else {
-    doc = await model.findOne({ _id }, { ...projections[modelKey], _id: 0 }).lean()
+    doc = await model.findOne({ _id }, { ...projection, _id: 0 }).lean()
   }
 
   await client.update({
