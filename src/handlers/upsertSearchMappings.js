@@ -26,7 +26,7 @@ module.exports = async (mappings, schemas, client) => {
 
   Object.keys(mappings).filter(schemaKey => schemas[schemaKey].class === 'collection')
     .forEach(modelKey => {
-      upserts.push(new Promise((resolve, reject) => {
+      upserts.push(new Promise(async (resolve, reject) => {
 
         try {
           await createIndex(modelKey, client)
