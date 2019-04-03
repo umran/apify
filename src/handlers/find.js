@@ -4,7 +4,7 @@ const DEFAULT_LIMIT = 20
 
 module.exports = async (model, argsOptions) => {
 
-  const { options_: options } = argsOptions
+  const { _options: options } = argsOptions
   const args = deriveArgs(argsOptions)
 
   let _query = args

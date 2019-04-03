@@ -97,7 +97,7 @@ const hydrateResults = async (model, results, options={}) => {
 
 const lookupIds = async (_ids, model) => {
 
-  let docs = await find(model, { _id: { $in: _ids }, options_: { paginate: false } })
+  let docs = await find(model, { _id: { $in: _ids }, _options: { paginate: false } })
 
   let sorted = []
   for (var i = 0; i < _ids.length; i++) {
@@ -124,7 +124,7 @@ const findIndex = (arr, lambda) => {
 }
 
 module.exports = async (modelKey, model, args, client) => {
-  const { query, options_: options } = args
+  const { query, _options: options } = args
 
   let results = await client.search({
     index: modelKey,
